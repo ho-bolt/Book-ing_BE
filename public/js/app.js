@@ -223,6 +223,8 @@ function handleIce(data) {
 }
 
 function handleAddStream(data) {
+    const peersFace = document.getElementById('peersFace')
+    peersFace.srcObject = data.stream
     console.log("내 피어로부터 이벤트 받았어");
     console.log("학선님 stream", data.stream)
     console.log("서호진 stream", myStream)
