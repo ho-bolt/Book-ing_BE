@@ -34,6 +34,7 @@
     "express-validator": "^6.14.0",
     "fs": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
+    "localtunnel": "^2.0.2",
     "moment": "^2.29.3",
     "moment-timezone": "^0.5.34",
     "mongoose": "^6.3.1",

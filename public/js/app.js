@@ -96,7 +96,9 @@ async function handleCameraChange() {
 
     await getMedia(camersSelect.value)
     if (myPeerConnection) {
-        console.log(myPeerConnection.getSenders)
+        const vidoeTrack = myStream.getVideoTracks()[0]
+        const videoSender = myPeerConnection.getSenders().find((sender) => sender.track.kind === 'video')
+        videoSender.replaceTrack(vidoeTrack);
     }
 }
 
@@ -201,6 +203,20 @@ function makeConnection() {
                     "stun:stun2.l.google.com:19302",
                     "stun:stun3.l.google.com:19302",
                     "stun:stun4.l.google.com:19302",
+                    stun01.sipphone.com
+stun.ekiga.net
+stun.fwdnet.net
+stun.ideasip.com
+stun.iptel.org
+stun.rixtelecom.se
+stun.schlund.de
+stunserver.org
+stun.softjoys.com
+stun.voiparound.com
+stun.voipbuster.com
+stun.voipstunt.com
+stun.voxgratia.org
+stun.xten.com
                 ],
             },
         ],
