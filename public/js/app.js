@@ -135,7 +135,7 @@ async function handleWelcomeSubmit(event) {
     //방에 들어가서 내 장치 가져옴
     await initMedia();
     console.log("방에 들어간다")
-    socket.emit('join_room', input.value, initMedia);
+    socket.emit('join_room', input.value);
     roomName = input.value;
     input.value = '';
 }
@@ -149,7 +149,7 @@ welcomeForm.addEventListener('submit', handleWelcomeSubmit)
 
 //--------------SOCKET 관련된 코드 
 
-//먼저 들어온 사람
+//먼저 들어온 사람(서호진)
 socket.on('welcome', async () => {
     console.log('누군가 들어왔어요!')
     const offer = await myPeerConnection.createOffer();
@@ -159,9 +159,11 @@ socket.on('welcome', async () => {
 
 })
 
-//나중에 들어온 사람 
+//나중에 들어온 사람 (학선님)
 socket.on('offer', async (offer) => {
     console.log('너 (먼저 들어와있던 사람)offer 받았으')
+    //이건 서호진 offer
+    //이거 아직 없음 왜냐하면 존나 빨라서
     myPeerConnection.setRemoteDescription(offer);
     const answer = await myPeerConnection.createAnswer();
 
@@ -207,7 +209,7 @@ function makeConnection() {
     myPeerConnection.addEventListener("icecandidate", handleIce)
     myPeerConnection.addEventListener("addstream", handleAddStream);
 
-    console.log(myStream.getTracks())
+    // console.log(myStream.getTracks())
     //내 장치들을 offer에 넣어준다.
     myStream.getTracks().forEach(track => myPeerConnection.addTrack(track, myStream));
 }
