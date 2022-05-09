@@ -1,7 +1,17 @@
 const app = require('./app')
 const http = require('http')
+const https = require('https')
+const credentials = require('./config/httpsConfig')
 
-const server = http.createServer(app)
+
+let server = '';
+if (process.env.PORT) {
+    server = https.createServer(credentials, app);
+} else {
+    server = http.createServer(app);
+}
+
+
 const io = require('socket.io')(server, {
     cors: {
         origin: '*',
@@ -9,6 +19,9 @@ const io = require('socket.io')(server, {
     },
 })
 console.log("소켓 서버도 실행!")
+
+
+
 
 io.on('connection', (socket) => {
 
@@ -28,9 +41,5 @@ io.on('connection', (socket) => {
         socket.to(roomName).emit('ice', ice)
     })
 });
-
-
-
-
 
 module.exports = { server }
