@@ -16,4 +16,6 @@ if (process.env.PORT) {
     );
 
     const credentials = { key: privateKey, cert: certificate, ca: ca };
+    module.exports = { credentials }
 }
+
