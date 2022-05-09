@@ -185,20 +185,7 @@ socket.on('ice', (ice) => {
     console.log('candidate 받았어')
     myPeerConnection.addIceCandidate(ice)
 })
-// {
-//     //네트워크가 달라도 서로 연결해준다. 
-//     iceServers: [
-//         {
-//             urls: [
-//                 "stun:stun.l.google.com:19302",
-//                 "stun:stun1.l.google.com:19302",
-//                 "stun:stun2.l.google.com:19302",
-//                 "stun:stun3.l.google.com:19302",
-//                 "stun:stun4.l.google.com:19302",
-//             ],
-//         },
-//     ],
-// }
+
 
 var pcConfig = {
     'iceServer': [{
@@ -221,7 +208,20 @@ var sdpConstraints = {
 // 이 함수로 기존에 있던 사람과 들어온 사람의 stream을 연결해준다. 
 //즉 peer to peer 연결을 수행한다. 
 function makeConnection() {
-    myPeerConnection = new RTCPeerConnection();
+    myPeerConnection = new RTCPeerConnection({
+        iceServers: [
+            {
+                urls: [
+                    "stun:stun.l.google.com:19302",
+                    "stun:stun1.l.google.com:19302",
+                    "stun:stun2.l.google.com:19302",
+                    "stun:stun3.l.google.com:19302",
+                    "stun:stun4.l.google.com:19302",
+                ],
+            },
+        ],
+    }
+    );
     //answer와 offer 서로 교환 끝나면 이거 필요 
     console.log('내 피어', myPeerConnection)
     myPeerConnection.addEventListener("icecandidate", handleIce)
