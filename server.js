@@ -8,15 +8,15 @@ const fs = require('fs');
 if (process.env.PORT) {
     // 환경파일 내 PORT 정보가 존재한다면, 운영환경인 것으로 간주하며, 443번 포트로 서버를 열어준다.
     const privateKey = fs.readFileSync(
-        '/etc/letsencrypt/live/sparta-hs.shop/privkey.pem',
+        '/etc/letsencrypt/live/ho-bolt.shop/privkey.pem',
         'utf8'
     );
     const certificate = fs.readFileSync(
-        '/etc/letsencrypt/live/sparta-hs.shop/cert.pem',
+        '/etc/letsencrypt/live/ho-bolt.shop/cert.pem',
         'utf8'
     );
     const ca = fs.readFileSync(
-        '/etc/letsencrypt/live/sparta-hs.shop/chain.pem',
+        '/etc/letsencrypt/live/ho-bolt.shop/chain.pem',
         'utf8'
     );
 
