@@ -1,7 +1,7 @@
 const app = require('./app')
-const https = require('https')
+const http = require('http')
 
-const server = https.createServer(app)
+const server = http.createServer(app)
 const io = require('socket.io')(server, {
     cors: {
         origin: '*',
