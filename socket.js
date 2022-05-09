@@ -1,8 +1,9 @@
-const app = require('./app')
-const http = require('http')
+// const app = require('./app')
+// const http = require('http')
 
-const server = http.createServer(app)
-const io = require('socket.io')(server, {
+// const server = http.createServer(app)
+const httpsServer = require('./server')
+const io = require('socket.io')(httpsServer, {
     cors: {
         origin: '*',
         credentials: true,
@@ -33,4 +34,4 @@ io.on('connection', (socket) => {
 
 
 
-module.exports = { server }
+// module.exports = { server }
