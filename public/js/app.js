@@ -161,24 +161,25 @@ socket.on('welcome', async () => {
 
 //나중에 들어온 사람 (학선님)
 socket.on('offer', async (offer) => {
-    console.log('너 (먼저 들어와있던 사람)offer 받았으')
+    console.log('서호진의 offer 받았으')
     //이건 서호진 offer
     //이거 아직 없음 왜냐하면 존나 빨라서
     myPeerConnection.setRemoteDescription(offer);
+    //학선님 answer
     const answer = await myPeerConnection.createAnswer();
-
+    console.log('학선님이 답 보낸다')
     myPeerConnection.setLocalDescription(answer);
     socket.emit('answer', answer, roomName);
 })
 
-//먼저 들어와있던 사람
-socket.on('answer', answer => {
-    console.log('너(나중에 들어온 사람) 답 받았다')
+//먼저 들어와있던 사람(서호진)
+socket.on('answer', (answer) => {
+    console.log('서호진 학선님의 답 받았다')
     myPeerConnection.setRemoteDescription(answer);
 })
 //서로 정보(offer)교환 끝 그럼 이제 icecandidate server교환만 남음 
 
-socket.on('ice', ice => {
+socket.on('ice', (ice) => {
     console.log('candidate 받았어')
     myPeerConnection.addIceCandidate(ice)
 })
@@ -216,12 +217,14 @@ function makeConnection() {
 
 function handleIce(data) {
     console.log('candidate 보냄 ')
-    socket.emit('ice', data, candidate, roomName)
+    // candidate===data
+    socket.emit('ice', data.candidate, roomName)
     console.log('데이터', data)
 }
 
 function handleAddStream(data) {
     console.log("내 피어로부터 이벤트 받았어");
-    console.log(data)
+    console.log("학선님 stream", data.stream)
+    console.log("서호진 stream", myStream)
 }
 
