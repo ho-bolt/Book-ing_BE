@@ -169,9 +169,9 @@ socket.on('answer', (answer) => {
     myPeerConnection.setRemoteDescription(answer);
 });
 //서로 정보(offer)교환 끝 그럼 이제 icecandidate server교환만 남음
-socket.on('ice', (ice, roomName) => {
+socket.on('ice', (ice,) => {
     console.log('candidate 받았어');
-    myPeerConnection.addIceCandidate(ice, roomName);
+    myPeerConnection.addIceCandidate(ice,);
 });
 // const configs = {
 //     iceServers: [
