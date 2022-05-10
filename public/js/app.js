@@ -208,9 +208,11 @@ function makeConnection() {
     myPeerConnection = new RTCPeerConnection({
         iceServers: [
             {
+                urls: "stun:stun.l.google.com:19302",
+            },
+            {
                 urls: "turn:TURN_IP:3478",
                 username: "test",
-                password: "test1234"
             }
         ],
     });
