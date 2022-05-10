@@ -214,16 +214,16 @@ function makeConnection() {
         {
             iceServers: [
                 {
-                    urls: 'stun:ho-bolt.shop:19302'
+                    urls: 'stun:13.125.123.252:80'
                 },
 
                 {
-                    urls: "turn:172.31.42.248:3478?transport=udp",
+                    urls: "turn:13.125.123.252:3478?transport=tcp",
                     credential: "test1234",
                     username: "test",
                 },
                 {
-                    urls: "turn:172.31.42.248:3478?transport=tcp",
+                    urls: "turn:13.125.123.252:3478?transport=udp",
                     credential: "test1234",
                     username: "test",
                 },
