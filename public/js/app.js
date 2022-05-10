@@ -197,17 +197,21 @@ socket.on('ice', (ice, roomName) => {
 //즉 peer to peer 연결을 수행한다.
 function makeConnection() {
     myPeerConnection = new RTCPeerConnection({
-        iceServers: [
+        'iceServers': [
             {
-                urls: [
-                    'stun:stun.l.google.com:19302',
-                    'stun:stun1.l.google.com:19302',
-                    'stun:stun2.l.google.com:19302',
-                    'stun:stun3.l.google.com:19302',
-                    'stun:stun4.l.google.com:19302',
-                ],
+                'urls': 'stun:stun.l.google.com:19302'
             },
-        ],
+            {
+                'urls': 'turn:192.158.29.39:3478?transport=udp',
+                'credential': 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+                'username': '28224511:1379330808'
+            },
+            {
+                'urls': 'turn:192.158.29.39:3478?transport=tcp',
+                'credential': 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+                'username': '28224511:1379330808'
+            }
+        ]
     });
     //answer와 offer 서로 교환 끝나면 이거 필요
     console.log('내 피어', myPeerConnection);
