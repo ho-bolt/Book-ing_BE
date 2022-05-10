@@ -198,6 +198,16 @@ socket.on('ice', (ice, roomName) => {
 //         },
 //     ],
 // };
+// {
+//     iceServers: [
+
+//         {
+//             urls: "turn:TURN_IP:3478",
+//             username: "test",
+//             credential: "pass",
+//         }
+//     ],
+// }
 
 //---------------------WEB RTC  코드
 // 이 함수로 기존에 있던 사람과 들어온 사람의 stream을 연결해준다.
@@ -205,16 +215,7 @@ socket.on('ice', (ice, roomName) => {
 function makeConnection() {
     //RTCPeerConnection == 암호화 및 대역폭 관리 오디오 또는 비디오 연결, peer 들 간의 데이터를
     // 안정적이고 효율적으로 통신하게 처리하는 webRTC 컴포넌트 
-    myPeerConnection = new RTCPeerConnection({
-        iceServers: [
-
-            {
-                urls: "turn:TURN_IP:3478",
-                credential: "pass",
-                username: "test",
-            }
-        ],
-    });
+    myPeerConnection = new RTCPeerConnection();
     //answer와 offer 서로 교환 끝나면 이거 필요
     console.log('내 피어', myPeerConnection);
     myPeerConnection.addEventListener('icecandidate', (event) => {
