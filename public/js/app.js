@@ -235,11 +235,11 @@ function makeConnection() {
         iceServers: [
             {
 
-                urls: 'stun:127.0.0.1:3478'
+                urls: 'stun:192.168.10.1:3478'
             },
 
             {
-                urls: "turn:127.0.0.1:3478",
+                urls: "turn:192.168.10.1:3478",
                 credential: "test1234",
                 username: "test",
             },
