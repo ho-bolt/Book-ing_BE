@@ -215,20 +215,9 @@ function makeConnection() {
             iceServers: [
 
                 {
-                    urls: [
-                        "iphone-stun.strato-iphone.de:3478",
-                        "numb.viagenie.ca:3478",
-                        "stun.12connect.com:3478",
-                        "stun.12voip.com:3478",
-                        "stun.1und1.de:3478",
-                        "stun.3cx.com:3478",
-                        "stun.acrobits.cz:3478",
-                        "stun.actionvoip.com:3478",
-                        "stun.advfn.com:3478",
-                        "stun.altar.com.pl:3478",
-                        "stun.antisip.com:3478",
-                        "stun.avigora.fr:3478",
-                    ]
+                    urls: "turn:TURN_IP:3478",
+                    username: "test",
+                    credential: "pass",
                 }
             ],
         }
