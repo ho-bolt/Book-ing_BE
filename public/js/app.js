@@ -170,9 +170,9 @@ socket.on('answer', (answer) => {
 });
 //서로 정보(offer)교환 끝 그럼 이제 icecandidate server교환만 남음
 
-socket.on('ice', (ice) => {
+socket.on('ice', (ice, roomName) => {
     console.log('candidate 받았어');
-    myPeerConnection.addIceCandidate(ice);
+    myPeerConnection.addIceCandidate(ice, roomName);
 });
 
 // var pcConfig = {
@@ -195,7 +195,7 @@ socket.on('ice', (ice) => {
 //---------------------WEB RTC  코드
 // 이 함수로 기존에 있던 사람과 들어온 사람의 stream을 연결해준다.
 //즉 peer to peer 연결을 수행한다.
-function makeConnection(roomName) {
+function makeConnection() {
     myPeerConnection = new RTCPeerConnection({
         iceServers: [
             {
