@@ -214,11 +214,11 @@ function makeConnection() {
         {
             iceServers: [
                 {
-                    'urls': 'stun:172.31.42.248:5349'
+                    'urls': 'stun:172.31.42.248:80'
                 },
 
                 {
-                    'urls': "turn:172.31.42.248:5349",
+                    'urls': "turn:172.31.42.248:3478",
                     'credential': "test1234",
                     'username': "test",
                 }
