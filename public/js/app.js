@@ -214,7 +214,10 @@ function makeConnection() {
         {
             iceServers: [
                 {
-                    urls: "turn:TURN_IP:3478",
+                    urls: 'stun:13.125.123.252:80'
+                },
+                {
+                    urls: "turn:13.125.123.252:3478",
                     username: "test",
                     credential: "test1234",
                 },
