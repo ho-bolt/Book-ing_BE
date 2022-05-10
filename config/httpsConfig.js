@@ -1,8 +1,6 @@
-const fs = require('fs')
-
+const fs = require('fs');
 
 if (process.env.PORT) {
-
     const privateKey = fs.readFileSync(
         '/etc/letsencrypt/live/ho-bolt.shop/privkey.pem',
         'utf8'
@@ -17,8 +15,5 @@ if (process.env.PORT) {
     );
 
     const credentials = { key: privateKey, cert: certificate, ca: ca };
-    module.exports = credentials
-
-
-
+    module.exports = credentials;
 }
