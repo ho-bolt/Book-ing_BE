@@ -207,12 +207,10 @@ function makeConnection() {
     // 안정적이고 효율적으로 통신하게 처리하는 webRTC 컴포넌트 
     myPeerConnection = new RTCPeerConnection({
         iceServers: [
-            {
-                urls: "stun:stun.l.google.com:19302",
-            },
+
             {
                 urls: "turn:TURN_IP:3478",
-                credential: "JZEOEt2V3Qb0y27GRntt2u2PAYA=",
+                credential: "test1234",
                 username: "test",
             }
         ],
