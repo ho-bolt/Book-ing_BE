@@ -155,17 +155,16 @@ socket.on('offer', async (offer) => {
     console.log('서호진의 offer 받았으');
     //이건 서호진 offer
     //이거 아직 없음 왜냐하면 존나 빨라서
-    const newPC = makeConnection(roomName)
-    await newPC.setRemoteDescription(offer);
+    myPeerConnection.setRemoteDescription(offer);
     //학선님 answer
-    const answer = await newPC.createAnswer();
+    const answer = await myPeerConnection.createAnswer();
     console.log('학선님이 답 보낸다');
-    newPC.setLocalDescription(answer);
+    myPeerConnection.setLocalDescription(answer);
     socket.emit('answer', answer, roomName);
 });
 
 //먼저 들어와있던 사람(서호진)
-socket.on('answer', (answer, roomName) => {
+socket.on('answer', (answer) => {
     console.log('서호진 학선님의 답 받았다');
     myPeerConnection.setRemoteDescription(answer);
 });
@@ -196,7 +195,7 @@ var sdpConstraints = {
 //---------------------WEB RTC  코드
 // 이 함수로 기존에 있던 사람과 들어온 사람의 stream을 연결해준다.
 //즉 peer to peer 연결을 수행한다.
-function makeConnection(remoteSocketId) {
+function makeConnection(roomName) {
     myPeerConnection = new RTCPeerConnection({
         iceServers: [
             {
@@ -213,7 +212,7 @@ function makeConnection(remoteSocketId) {
     //answer와 offer 서로 교환 끝나면 이거 필요
     console.log('내 피어', myPeerConnection);
     myPeerConnection.addEventListener('icecandidate', (event) => {
-        handleIce(event, remoteSocketId)
+        handleIce(event, roomName)
     });
     myPeerConnection.addEventListener('addstream', handleAddStream);
 
