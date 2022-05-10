@@ -217,7 +217,7 @@ function makeConnection() {
                 {
                     urls: "turn:13.125.123.252:3478",
                     username: "test",
-                    credential: "test1234",
+                    credential: "test123",
                 },
             ],
         }
