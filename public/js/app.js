@@ -214,11 +214,11 @@ function makeConnection() {
         {
             iceServers: [
                 {
-                    'urls': 'stun:172-31-42-248:80'
+                    'urls': 'stun:ho-bolt.shop:80'
                 },
 
                 {
-                    'urls': "turn:172-31-42-248:3478",
+                    'urls': "turn:ho-bolt.shop",
                     'credential': "test123",
                     'username': "test",
                 }
