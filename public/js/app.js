@@ -216,7 +216,7 @@ function makeConnection() {
                 {
                     urls: "turn:TURN_IP:3478",
                     username: "test",
-                    credential: "pass",
+                    credential: "test1234",
                 },
             ],
         }
