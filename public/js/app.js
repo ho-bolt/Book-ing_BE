@@ -198,27 +198,27 @@ socket.on('ice', (ice,) => {
 //         },
 //     ],
 // };
-const configs = {
-    iceServers: [
-        {
-            urls: 'stun:13.125.123.252:80'
-        },
+// const configs = {
+//     iceServers: [
+//         {
+//             urls: 'stun:13.125.123.252:80'
+//         },
 
-        {
-            urls: "turn:13.125.123.252:80",
-            credential: "test1234",
-            username: "test",
-        },
+//         {
+//             urls: "turn:13.125.123.252:80",
+//             credential: "test1234",
+//             username: "test",
+//         },
 
-    ],
-};
-const peerConnectionOptions = {
-    optional: [
-        {
-            DtlsSrtpKeyAgreement: true,
-        },
-    ],
-};
+//     ],
+// };
+// const peerConnectionOptions = {
+//     optional: [
+//         {
+//             DtlsSrtpKeyAgreement: true,
+//         },
+//     ],
+// };
 // {
 //     urls: "turn:TURN_IP:3478",
 //         username: "test",
@@ -231,7 +231,21 @@ const peerConnectionOptions = {
 function makeConnection() {
     //RTCPeerConnection == 암호화 및 대역폭 관리 오디오 또는 비디오 연결, peer 들 간의 데이터를
     // 안정적이고 효율적으로 통신하게 처리하는 webRTC 컴포넌트 
-    myPeerConnection = new RTCPeerConnection(configs, peerConnectionOptions);
+    myPeerConnection = new RTCPeerConnection({
+        iceServers: [
+            {
+
+                urls: 'stun:13.125.123.252'
+            },
+
+            {
+                urls: "turn:13.125.123.252",
+                credential: "test1234",
+                username: "test",
+            },
+
+        ],
+    });
     //answer와 offer 서로 교환 끝나면 이거 필요
     console.log('내 피어', myPeerConnection);
     myPeerConnection.addEventListener('icecandidate', (event) => {
