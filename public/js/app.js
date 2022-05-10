@@ -218,12 +218,12 @@ function makeConnection() {
                 },
 
                 {
-                    urls: "turn:13.125.123.252:3478?transport=tcp",
+                    urls: "turn:13.125.123.252:3478",
                     credential: "test1234",
                     username: "test",
                 },
                 {
-                    urls: "turn:13.125.123.252:3478?transport=udp",
+                    urls: "turn:13.125.123.252:5349",
                     credential: "test1234",
                     username: "test",
                 },
