@@ -215,11 +215,6 @@ function makeConnection() {
             iceServers: [
                 {
                     urls: [
-                        "stun.l.google.com: 19302",
-                        "stun1.l.google.com: 19302",
-                        "stun2.l.google.com: 19302",
-                        "stun3.l.google.com: 19302",
-                        "stun4.l.google.com: 19302",
                         "stun01.sipphone.com",
                         "stun.ekiga.net",
                         "stun.fwdnet.net",
@@ -233,7 +228,8 @@ function makeConnection() {
                         "stun.voipbuster.com",
                         "stun.voipstunt.com",
                         "stun.voxgratia.org",
-                        "stun.xten.com"
+                        "stun.xten.com",
+
                     ]
                 },
             ],
