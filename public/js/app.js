@@ -218,7 +218,7 @@ function makeConnection() {
                 },
 
                 {
-                    'urls': "turn:172-31-42-248:3478",
+                    'urls': "turn:172-31-42-248:80",
                     'credential': "test123",
                     'username': "test",
                 }
