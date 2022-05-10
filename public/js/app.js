@@ -218,15 +218,11 @@ function makeConnection() {
                 },
 
                 {
-                    urls: "turn:13.125.123.252:3478",
+                    urls: "turn:13.125.123.252:80",
                     credential: "test1234",
                     username: "test",
                 },
-                {
-                    urls: "turn:13.125.123.252:5349",
-                    credential: "test1234",
-                    username: "test",
-                },
+
             ],
         }
     );
