@@ -174,45 +174,36 @@ socket.on('ice', (ice, roomName) => {
     console.log('candidate 받았어');
     myPeerConnection.addIceCandidate(ice, roomName);
 });
-
-// var pcConfig = {
-//     iceServer: [
-//         {
-//             url: 'stun:stun1.l.google.com:19302',
-//         },
-//         {
-//             url: 'turn:numb.viagenie.ca',
-//             credential: 'muazkh',
-//             username: 'webrtc@live.com',
-//         },
-//     ],
-// };
-// var sdpConstraints = {
-//     offerToReceiveAudio: true,
-//     offerToReceiveVideo: true,
-// };
+const configs = {
+    iceServers: [
+        {
+            urls: "stun:stun.l.google.com:19302",
+        },
+        {
+            urls: "turn:192.158.29.39:3478?transport=udp",
+            credential: "JZEOEt2V3Qb0y27GRntt2u2PAYA=",
+            username: "28224511:1379330808",
+        },
+        {
+            urls: "turn:192.158.29.39:3478?transport=tcp",
+            credential: "JZEOEt2V3Qb0y27GRntt2u2PAYA=",
+            username: "28224511:1379330808",
+        },
+    ],
+};
+const peerConnectionOptions = {
+    optional: [
+        {
+            DtlsSrtpKeyAgreement: true,
+        },
+    ],
+};
 
 //---------------------WEB RTC  코드
 // 이 함수로 기존에 있던 사람과 들어온 사람의 stream을 연결해준다.
 //즉 peer to peer 연결을 수행한다.
 function makeConnection() {
-    myPeerConnection = new RTCPeerConnection({
-        iceServers: [
-            {
-                urls: "stun:stun.l.google.com:19302",
-            },
-            {
-                urls: "turn:192.158.29.39:3478?transport=udp",
-                credential: "JZEOEt2V3Qb0y27GRntt2u2PAYA=",
-                username: "28224511:1379330808",
-            },
-            {
-                urls: "turn:192.158.29.39:3478?transport=tcp",
-                credential: "JZEOEt2V3Qb0y27GRntt2u2PAYA=",
-                username: "28224511:1379330808",
-            },
-        ],
-    });
+    myPeerConnection = new RTCPeerConnection(configs, peerConnectionOptions);
     //answer와 offer 서로 교환 끝나면 이거 필요
     console.log('내 피어', myPeerConnection);
     myPeerConnection.addEventListener('icecandidate', (event) => {
