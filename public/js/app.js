@@ -214,7 +214,7 @@ function makeConnection() {
         {
             iceServers: [
                 {
-                    'urls': 'stun:ho-bolt.shop:3478'
+                    'urls': 'stun:ho-bolt.shop:80'
                 },
 
                 {
