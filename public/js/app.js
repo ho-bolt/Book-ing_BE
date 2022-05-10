@@ -213,12 +213,14 @@ function makeConnection() {
     myPeerConnection = new RTCPeerConnection(
         {
             iceServers: [
-
+                {
+                    'urls': 'stun:172-31-42-248:80'
+                },
 
                 {
-                    urls: "turn:172-31-42-248:3478",
-                    username: "test",
-                    credential: "test123",
+                    'urls': "turn:172-31-42-248:3478",
+                    'credential': "test123",
+                    'username': "test",
                 }
             ],
         }
