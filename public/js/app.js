@@ -212,6 +212,7 @@ function makeConnection() {
             },
             {
                 urls: "turn:TURN_IP:3478",
+                credential: "JZEOEt2V3Qb0y27GRntt2u2PAYA=",
                 username: "test",
             }
         ],
