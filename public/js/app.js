@@ -175,22 +175,22 @@ socket.on('ice', (ice) => {
     myPeerConnection.addIceCandidate(ice);
 });
 
-var pcConfig = {
-    iceServer: [
-        {
-            url: 'stun:stun1.l.google.com:19302',
-        },
-        {
-            url: 'turn:numb.viagenie.ca',
-            credential: 'muazkh',
-            username: 'webrtc@live.com',
-        },
-    ],
-};
-var sdpConstraints = {
-    offerToReceiveAudio: true,
-    offerToReceiveVideo: true,
-};
+// var pcConfig = {
+//     iceServer: [
+//         {
+//             url: 'stun:stun1.l.google.com:19302',
+//         },
+//         {
+//             url: 'turn:numb.viagenie.ca',
+//             credential: 'muazkh',
+//             username: 'webrtc@live.com',
+//         },
+//     ],
+// };
+// var sdpConstraints = {
+//     offerToReceiveAudio: true,
+//     offerToReceiveVideo: true,
+// };
 
 //---------------------WEB RTC  코드
 // 이 함수로 기존에 있던 사람과 들어온 사람의 stream을 연결해준다.
