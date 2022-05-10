@@ -199,14 +199,9 @@ socket.on('ice', (ice, roomName) => {
 //     ],
 // };
 // {
-//     iceServers: [
-
-//         {
-//             urls: "turn:TURN_IP:3478",
-//             username: "test",
-//             credential: "pass",
-//         }
-//     ],
+//     urls: "turn:TURN_IP:3478",
+//     username: "test",
+//     credential: "pass",
 // }
 
 //---------------------WEB RTC  코드
@@ -215,7 +210,35 @@ socket.on('ice', (ice, roomName) => {
 function makeConnection() {
     //RTCPeerConnection == 암호화 및 대역폭 관리 오디오 또는 비디오 연결, peer 들 간의 데이터를
     // 안정적이고 효율적으로 통신하게 처리하는 webRTC 컴포넌트 
-    myPeerConnection = new RTCPeerConnection();
+    myPeerConnection = new RTCPeerConnection(
+        {
+            iceServers: [
+                {
+                    urls: [
+                        "stun.l.google.com: 19302",
+                        "stun1.l.google.com: 19302",
+                        "stun2.l.google.com: 19302",
+                        "stun3.l.google.com: 19302",
+                        "stun4.l.google.com: 19302",
+                        "stun01.sipphone.com",
+                        "stun.ekiga.net",
+                        "stun.fwdnet.net",
+                        "stun.ideasip.com",
+                        "stun.iptel.org",
+                        "stun.rixtelecom.se",
+                        "stun.schlund.de",
+                        "stunserver.org",
+                        "stun.softjoys.com",
+                        "stun.voiparound.com",
+                        "stun.voipbuster.com",
+                        "stun.voipstunt.com",
+                        "stun.voxgratia.org",
+                        "stun.xten.com"
+                    ]
+                },
+            ],
+        }
+    );
     //answer와 offer 서로 교환 끝나면 이거 필요
     console.log('내 피어', myPeerConnection);
     myPeerConnection.addEventListener('icecandidate', (event) => {
