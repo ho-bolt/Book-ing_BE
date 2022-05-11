@@ -197,12 +197,16 @@ function makeConnection() {
                     username: 'webrtc@live.com'
                 },
                 {
-                    urls:
-                        "turn:13.250.13.83:3478?transport=udp",
-
-                    username: "YzYNCouZM1mhqhmseWk6",
-                    credential: "YzYNCouZM1mhqhmseWk6"
+                    url: 'turn:turn.bistri.com:80',
+                    credential: 'homeo',
+                    username: 'homeo'
+                },
+                {
+                    url: 'turn:turn.anyfirewall.com:443?transport=tcp',
+                    credential: 'webrtc',
+                    username: 'webrtc'
                 }
+
             ],
         }
     );
