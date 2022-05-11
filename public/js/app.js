@@ -1,7 +1,6 @@
 const socket = io();
 
 //html 가져오는 부분
-
 const myFace = document.getElementById('myFace');
 const muteBtn = document.getElementById('mute');
 let cameraBtn = document.getElementById('camera');
@@ -175,32 +174,33 @@ socket.on('ice', (ice) => {
     myPeerConnection.addIceCandidate(ice);
 });
 
-var pcConfig = {
-    iceServer: [
-        {
-            url: 'stun:stun1.l.google.com:19302',
-        },
-        {
-            url: 'turn:numb.viagenie.ca',
-            credential: 'muazkh',
-            username: 'webrtc@live.com',
-        },
-    ],
-};
-var sdpConstraints = {
-    offerToReceiveAudio: true,
-    offerToReceiveVideo: true,
-};
+// var pcConfig = {
+//     iceServer: [
+//         {
+//             url: 'stun:stun1.l.google.com:19302',
+//         },
+//         {
+//             url: 'turn:numb.viagenie.ca',
+//             credential: 'muazkh',
+//             username: 'webrtc@live.com',
+//         },
+//     ],
+// };
+// var sdpConstraints = {
+//     offerToReceiveAudio: true,
+//     offerToReceiveVideo: true,
+// };
 
 //---------------------WEB RTC  코드
 // 이 함수로 기존에 있던 사람과 들어온 사람의 stream을 연결해준다.
 //즉 peer to peer 연결을 수행한다.
 function makeConnection(roomName) {
     myPeerConnection = new RTCPeerConnection({
-        'iceServers': [{
-            'urls': 'stun:stun.example.org'
+        iceServers: [{
+            urls: 'stun:stun.example.org'
         }],
     });
+
     //answer와 offer 서로 교환 끝나면 이거 필요
     console.log('내 피어', myPeerConnection);
     myPeerConnection.addEventListener('icecandidate', (event) => {
