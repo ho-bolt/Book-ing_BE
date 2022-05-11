@@ -6,8 +6,7 @@ const myFace = document.getElementById('myFace');
 const muteBtn = document.getElementById('mute');
 let cameraBtn = document.getElementById('camera');
 const camersSelect = document.getElementById('cameras');
-// const myVideo = document.getElementById('myface').volume = 0;
-// const peersVideo = document.getElementById('peersFace').volume = 0;
+
 let myStream;
 let muted = false;
 let cameraOff = false;
@@ -28,7 +27,7 @@ async function getMedia(deviceId) {
         myStream = await navigator.mediaDevices.getUserMedia(
             deviceId ? camerConstraints : initialConstraints
         );
-        myFace.volume = 0;
+
         myFace.srcObject = myStream;
         if (!deviceId) {
             await getCamers();
@@ -227,7 +226,7 @@ function handleIce(data, roomName) {
 
 function handleAddStream(data) {
     const peersFace = document.getElementById('peersFace');
-    peersFace.volume = 0;
+
     peersFace.srcObject = data.stream;
     console.log('내 피어로부터 이벤트 받았어');
     console.log('학선님 stream', data.stream);
