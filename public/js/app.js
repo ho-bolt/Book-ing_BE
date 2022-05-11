@@ -188,13 +188,7 @@ function makeConnection() {
             'urls': 'stun:stun.example.org'
         }]
     });
-    myPeerConnection.onicecandidate = function (evt) {
-        if (evt.candidate) {
-            signaling.send(JSON.stringify({
-                'candidate': evt.candidate
-            }))
-        }
-    }
+    myPeerConnection.onicecandidate = ({ candidate }) => signaling.send({ candidate })
     myPeerConnection.onnegotiationneeded = async () => {
         try {
             await myPeerConnection.setLocalDescription();
@@ -204,15 +198,20 @@ function makeConnection() {
         }
     }
 
-    try {
+    myPeerConnection.ontrack = ({ track, streams }) => {
         const peersFace = document.getElementById('peersFace');
-        const myStream = await navigator.mediaDevices.getUserMedia()
-        peersFace.srcObject = myStream.stream;
-    } catch (err) {
-        console.log(err)
+        // peersFace.srcObject = data.stream;
+        track.onunmute = () => {
+            if (remoteView.srcObject) return;
+            peersFace.srcObject = streams[0]
+        }
     }
-    //answer와 offer 서로 교환 끝나면 이거 필요
     console.log('내 피어', myPeerConnection);
+
+}
+
+
+    //answer와 offer 서로 교환 끝나면 이거 필요
     // myPeerConnection.addEventListener('icecandidate', (event) => {
     //     handleIce(event, roomName)
     // });
@@ -223,19 +222,18 @@ function makeConnection() {
     // myStream
     //     .getTracks()
     //     .forEach((track) => myPeerConnection.addTrack(track, myStream));
-}
 
-function handleIce(data, roomName) {
-    console.log('candidate 보냄 ');
-    // candidate===data
-    socket.emit('ice', data.candidate, roomName);
-    console.log('데이터', data);
-}
+// function handleIce(data, roomName) {
+//     console.log('candidate 보냄 ');
+//     // candidate===data
+//     socket.emit('ice', data.candidate, roomName);
+//     console.log('데이터', data);
+// }
 
-function handleAddStream(data) {
-    const peersFace = document.getElementById('peersFace');
-    peersFace.srcObject = data.stream;
-    console.log('내 피어로부터 이벤트 받았어');
-    console.log('학선님 stream', data.stream);
-    console.log('서호진 stream', myStream);
-}
+// function handleAddStream(data) {
+//     const peersFace = document.getElementById('peersFace');
+//     peersFace.srcObject = data.stream;
+//     console.log('내 피어로부터 이벤트 받았어');
+//     console.log('학선님 stream', data.stream);
+//     console.log('서호진 stream', myStream);
+// }
