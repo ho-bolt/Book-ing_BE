@@ -87,6 +87,7 @@ async function getStudyLists(req, res) {
         }
 
         const data = await STUDY.find({ meetingId });
+        console.log("@@@", data)
         // data.sort((a, b) => b.regDate - a.regDate);
         let studyList = [];
 
