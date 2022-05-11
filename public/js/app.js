@@ -7,8 +7,8 @@ const muteBtn = document.getElementById('mute');
 let cameraBtn = document.getElementById('camera');
 const camersSelect = document.getElementById('cameras');
 let myStream;
-let muted = false;
-let cameraOff = false;
+let muted;
+let cameraOff;
 let roomName;
 let myPeerConnection;
 
