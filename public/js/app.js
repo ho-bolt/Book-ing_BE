@@ -185,13 +185,15 @@ function makeConnection() {
         {
             iceServers: [
                 {
-                    urls: [
+                    urls:
                         "stun:stun.l.google.com:19302",
-                        "stun:stun1.l.google.com:19302",
-                        "stun:stun2.l.google.com:19302",
-                        "stun:stun3.l.google.com:19302",
-                        "stun:stun4.l.google.com:19302",
-                    ],
+
+
+                },
+                {
+                    url: 'turn:numb.viagenie.ca',
+                    credential: 'muazkh',
+                    username: 'webrtc@live.com'
                 },
                 {
                     url: 'turn:192.158.29.39:3478?transport=udp',
