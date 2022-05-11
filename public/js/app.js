@@ -184,30 +184,15 @@ function makeConnection() {
     myPeerConnection = new RTCPeerConnection(
         {
             iceServers: [
-
-                { url: 'stun:stun.l.google.com:19302' },
-                { url: 'stun:stun1.l.google.com:19302' },
-                { url: 'stun:stun2.l.google.com:19302' },
-                { url: 'stun:stun3.l.google.com:19302' },
-                { url: 'stun:stun4.l.google.com:19302' },
-
                 {
-                    url: 'turn:numb.viagenie.ca',
-                    credential: 'muazkh',
-                    username: 'webrtc@live.com'
+                    urls: "stun:stunserver.example.org"
                 },
                 {
-                    url: 'turn:turn.bistri.com:80',
-                    credential: 'homeo',
-                    username: 'homeo'
-                },
-                {
-                    url: 'turn:turn.anyfirewall.com:443?transport=tcp',
-                    credential: 'webrtc',
-                    username: 'webrtc'
+                    urls: "turn:52.79.93.143",
+                    username: "booking",
+                    credential: "booking1234"
                 }
-
-            ],
+            ]
         }
     );
     //answer와 offer 서로 교환 끝나면 이거 필요
