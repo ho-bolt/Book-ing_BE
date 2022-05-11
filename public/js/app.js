@@ -2,6 +2,7 @@ const socket = io();
 
 //html 가져오는 부분
 
+const signaling = new SignalingChannel();
 const myFace = document.getElementById('myFace');
 const muteBtn = document.getElementById('mute');
 let cameraBtn = document.getElementById('camera');
@@ -173,62 +174,12 @@ socket.on('ice', (ice,) => {
     console.log('candidate 받았어');
     myPeerConnection.addIceCandidate(ice,);
 });
-// const configs = {
-//     iceServers: [
-//         {
-//             urls: "stun:stun.l.google.com:19302",
-//         },
-//         {
-//             urls: "turn:192.158.29.39:3478?transport=udp",
-//             credential: "JZEOEt2V3Qb0y27GRntt2u2PAYA=",
-//             username: "28224511:1379330808",
-//         },
-//         {
-//             urls: "turn:192.158.29.39:3478?transport=tcp",
-//             credential: "JZEOEt2V3Qb0y27GRntt2u2PAYA=",
-//             username: "28224511:1379330808",
-//         },
 
-//     ],
-// };
-// const peerConnectionOptions = {
-//     optional: [
-//         {
-//             DtlsSrtpKeyAgreement: true,
-//         },
-//     ],
-// };
-// const configs = {
-//     iceServers: [
-//         {
-//             urls: 'stun:13.125.123.252:80'
-//         },
 
-//         {
-//             urls: "turn:13.125.123.252:80",
-//             credential: "test1234",
-//             username: "test",
-//         },
-
-//     ],
-// };
-// const peerConnectionOptions = {
-//     optional: [
-//         {
-//             DtlsSrtpKeyAgreement: true,
-//         },
-//     ],
-// };
-// {
-//     urls: "turn:TURN_IP:3478",
-//         username: "test",
-//             credential: "pass",
-// }
 
 //---------------------WEB RTC  코드
 // 이 함수로 기존에 있던 사람과 들어온 사람의 stream을 연결해준다.
 //즉 peer to peer 연결을 수행한다.
-const signaling = new SignalingChannel();
 function makeConnection() {
     //RTCPeerConnection == 암호화 및 대역폭 관리 오디오 또는 비디오 연결, peer 들 간의 데이터를
     // 안정적이고 효율적으로 통신하게 처리하는 webRTC 컴포넌트 
@@ -244,22 +195,34 @@ function makeConnection() {
             }))
         }
     }
-    myPeerConnection.onnegotiationneeded = function () {
-        myPeerConnection.createOffer(localDescCreated, logError)
+    myPeerConnection.onnegotiationneeded = async () => {
+        try {
+            await myPeerConnection.setLocalDescription();
+            signaling.send({ description: myPeerConnection.localDescription })
+        } catch (err) {
+            console.log(err)
+        }
     }
 
+    try {
+        const peersFace = document.getElementById('peersFace');
+        const myStream = await navigator.mediaDevices.getUserMedia()
+        peersFace.srcObject = myStream.stream;
+    } catch (err) {
+        console.log(err)
+    }
     //answer와 offer 서로 교환 끝나면 이거 필요
     console.log('내 피어', myPeerConnection);
-    myPeerConnection.addEventListener('icecandidate', (event) => {
-        handleIce(event, roomName)
-    });
-    myPeerConnection.addEventListener('addstream', handleAddStream);
+    // myPeerConnection.addEventListener('icecandidate', (event) => {
+    //     handleIce(event, roomName)
+    // });
+    // myPeerConnection.addEventListener('addstream', handleAddStream);
 
-    // console.log(myStream.getTracks())
-    //내 장치들을 offer에 넣어준다.
-    myStream
-        .getTracks()
-        .forEach((track) => myPeerConnection.addTrack(track, myStream));
+    // // console.log(myStream.getTracks())
+    // //내 장치들을 offer에 넣어준다.
+    // myStream
+    //     .getTracks()
+    //     .forEach((track) => myPeerConnection.addTrack(track, myStream));
 }
 
 function handleIce(data, roomName) {
