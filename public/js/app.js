@@ -187,7 +187,12 @@ function makeConnection() {
         {
             iceServers: [
                 {
-                    urls: "stun:stun.l.google.com:19302",
+                    urls: ["stun:stun.l.google.com:19302",
+                        "stun.l.google.com:19302,",
+                        "stun1.l.google.com:19302,",
+                        "stun2.l.google.com:19302,",
+                        "stun3.l.google.com:19302,",
+                        "stun4.l.google.com:19302,"]
                 },
                 {
                     url: 'turn:numb.viagenie.ca',
@@ -198,7 +203,16 @@ function makeConnection() {
                     url: 'turn:192.158.29.39:3478?transport=udp',
                     credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
                     username: '28224511:1379330808'
+                }, {
+                    url: 'turn:turn.bistri.com:80',
+                    credential: 'homeo',
+                    username: 'homeo'
                 },
+                {
+                    url: 'turn:turn.anyfirewall.com:443?transport=tcp',
+                    credential: 'webrtc',
+                    username: 'webrtc'
+                }
 
             ],
         }
@@ -226,7 +240,6 @@ function handleIce(data, roomName) {
 
 function handleAddStream(data) {
     const peersFace = document.getElementById('peersFace');
-
     peersFace.srcObject = data.stream;
     console.log('내 피어로부터 이벤트 받았어');
     console.log('학선님 stream', data.stream);
