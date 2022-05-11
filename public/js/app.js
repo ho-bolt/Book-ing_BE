@@ -2,7 +2,6 @@ const socket = io();
 
 //html 가져오는 부분
 
-const signaling = new SignalingChannel();
 const myFace = document.getElementById('myFace');
 const muteBtn = document.getElementById('mute');
 let cameraBtn = document.getElementById('camera');
@@ -170,70 +169,71 @@ socket.on('answer', (answer) => {
     myPeerConnection.setRemoteDescription(answer);
 });
 //서로 정보(offer)교환 끝 그럼 이제 icecandidate server교환만 남음
-socket.on('ice', (ice,) => {
+
+socket.on('ice', (ice) => {
     console.log('candidate 받았어');
-    myPeerConnection.addIceCandidate(ice,);
+    myPeerConnection.addIceCandidate(ice);
 });
 
-
+var pcConfig = {
+    iceServer: [
+        {
+            url: 'stun:stun1.l.google.com:19302',
+        },
+        {
+            url: 'turn:numb.viagenie.ca',
+            credential: 'muazkh',
+            username: 'webrtc@live.com',
+        },
+    ],
+};
+var sdpConstraints = {
+    offerToReceiveAudio: true,
+    offerToReceiveVideo: true,
+};
 
 //---------------------WEB RTC  코드
 // 이 함수로 기존에 있던 사람과 들어온 사람의 stream을 연결해준다.
 //즉 peer to peer 연결을 수행한다.
-function makeConnection() {
-    //RTCPeerConnection == 암호화 및 대역폭 관리 오디오 또는 비디오 연결, peer 들 간의 데이터를
-    // 안정적이고 효율적으로 통신하게 처리하는 webRTC 컴포넌트 
+function makeConnection(roomName) {
     myPeerConnection = new RTCPeerConnection({
-        'iceServers': [{
-            'urls': 'stun:stun.example.org'
-        }]
+        iceServers: [
+            {
+                urls: [
+                    'stun:stun.l.google.com:19302',
+                    'stun:stun1.l.google.com:19302',
+                    'stun:stun2.l.google.com:19302',
+                    'stun:stun3.l.google.com:19302',
+                    'stun:stun4.l.google.com:19302',
+                ],
+            },
+        ],
     });
-    myPeerConnection.onicecandidate = ({ candidate }) => signaling.send({ candidate })
-    myPeerConnection.onnegotiationneeded = async () => {
-        try {
-            await myPeerConnection.setLocalDescription();
-            signaling.send({ description: myPeerConnection.localDescription })
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
-    myPeerConnection.ontrack = ({ track, streams }) => {
-        const peersFace = document.getElementById('peersFace');
-        // peersFace.srcObject = data.stream;
-        track.onunmute = () => {
-            if (remoteView.srcObject) return;
-            peersFace.srcObject = streams[0]
-        }
-    }
+    //answer와 offer 서로 교환 끝나면 이거 필요
     console.log('내 피어', myPeerConnection);
+    myPeerConnection.addEventListener('icecandidate', (event) => {
+        handleIce(event, roomName)
+    });
+    myPeerConnection.addEventListener('addstream', handleAddStream);
 
+    // console.log(myStream.getTracks())
+    //내 장치들을 offer에 넣어준다.
+    myStream
+        .getTracks()
+        .forEach((track) => myPeerConnection.addTrack(track, myStream));
 }
 
+function handleIce(data, roomName) {
+    console.log('candidate 보냄 ');
+    // candidate===data
+    socket.emit('ice', data.candidate, roomName);
+    console.log('데이터', data);
+}
 
-    //answer와 offer 서로 교환 끝나면 이거 필요
-    // myPeerConnection.addEventListener('icecandidate', (event) => {
-    //     handleIce(event, roomName)
-    // });
-    // myPeerConnection.addEventListener('addstream', handleAddStream);
-
-    // // console.log(myStream.getTracks())
-    // //내 장치들을 offer에 넣어준다.
-    // myStream
-    //     .getTracks()
-    //     .forEach((track) => myPeerConnection.addTrack(track, myStream));
-
-// function handleIce(data, roomName) {
-//     console.log('candidate 보냄 ');
-//     // candidate===data
-//     socket.emit('ice', data.candidate, roomName);
-//     console.log('데이터', data);
-// }
-
-// function handleAddStream(data) {
-//     const peersFace = document.getElementById('peersFace');
-//     peersFace.srcObject = data.stream;
-//     console.log('내 피어로부터 이벤트 받았어');
-//     console.log('학선님 stream', data.stream);
-//     console.log('서호진 stream', myStream);
-// }
+function handleAddStream(data) {
+    const peersFace = document.getElementById('peersFace');
+    peersFace.srcObject = data.stream;
+    console.log('내 피어로부터 이벤트 받았어');
+    console.log('학선님 stream', data.stream);
+    console.log('서호진 stream', myStream);
+}
