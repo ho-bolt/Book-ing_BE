@@ -6,7 +6,6 @@ const myFace = document.getElementById('myFace');
 const muteBtn = document.getElementById('mute');
 let cameraBtn = document.getElementById('camera');
 const camersSelect = document.getElementById('cameras');
-
 let myStream;
 let muted = false;
 let cameraOff = false;
