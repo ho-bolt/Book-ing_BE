@@ -188,7 +188,6 @@ function makeConnection() {
             iceServers: [
                 {
                     urls: "stun:stun.l.google.com:19302",
-
                 },
                 {
                     url: 'turn:numb.viagenie.ca',
@@ -199,16 +198,7 @@ function makeConnection() {
                     url: 'turn:192.158.29.39:3478?transport=udp',
                     credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
                     username: '28224511:1379330808'
-                }, {
-                    url: 'turn:turn.bistri.com:80',
-                    credential: 'homeo',
-                    username: 'homeo'
                 },
-                {
-                    url: 'turn:turn.anyfirewall.com:443?transport=tcp',
-                    credential: 'webrtc',
-                    username: 'webrtc'
-                }
 
             ],
         }
