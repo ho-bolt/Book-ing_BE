@@ -1,6 +1,7 @@
 const socket = io();
 
 //html 가져오는 부분
+
 const myFace = document.getElementById('myFace');
 const muteBtn = document.getElementById('mute');
 let cameraBtn = document.getElementById('camera');
@@ -168,39 +169,57 @@ socket.on('answer', (answer) => {
     myPeerConnection.setRemoteDescription(answer);
 });
 //서로 정보(offer)교환 끝 그럼 이제 icecandidate server교환만 남음
-
-socket.on('ice', (ice) => {
+socket.on('ice', (ice, roomName) => {
     console.log('candidate 받았어');
-    myPeerConnection.addIceCandidate(ice);
+    myPeerConnection.addIceCandidate(ice, roomName);
 });
-
-// var pcConfig = {
-//     iceServer: [
+// const configs = {
+//     iceServers: [
 //         {
-//             url: 'stun:stun1.l.google.com:19302',
+//             urls: "stun:stun.l.google.com:19302",
 //         },
 //         {
-//             url: 'turn:numb.viagenie.ca',
-//             credential: 'muazkh',
-//             username: 'webrtc@live.com',
+//             urls: "turn:192.158.29.39:3478?transport=udp",
+//             credential: "JZEOEt2V3Qb0y27GRntt2u2PAYA=",
+//             username: "28224511:1379330808",
+//         },
+//         {
+//             urls: "turn:192.158.29.39:3478?transport=tcp",
+//             credential: "JZEOEt2V3Qb0y27GRntt2u2PAYA=",
+//             username: "28224511:1379330808",
+//         },
+
+//     ],
+// };
+// const peerConnectionOptions = {
+//     optional: [
+//         {
+//             DtlsSrtpKeyAgreement: true,
 //         },
 //     ],
 // };
-// var sdpConstraints = {
-//     offerToReceiveAudio: true,
-//     offerToReceiveVideo: true,
-// };
+// {
+//     urls: "turn:TURN_IP:3478",
+//     username: "test",
+//     credential: "pass",
+// }
 
 //---------------------WEB RTC  코드
 // 이 함수로 기존에 있던 사람과 들어온 사람의 stream을 연결해준다.
 //즉 peer to peer 연결을 수행한다.
-function makeConnection(roomName) {
-    myPeerConnection = new RTCPeerConnection({
-        iceServers: [{
-            urls: 'stun:stun.example.org'
-        }],
-    });
+function makeConnection() {
+    //RTCPeerConnection == 암호화 및 대역폭 관리 오디오 또는 비디오 연결, peer 들 간의 데이터를
+    // 안정적이고 효율적으로 통신하게 처리하는 webRTC 컴포넌트 
+    myPeerConnection = new RTCPeerConnection(
+        {
+            iceServers: [
+                {
+                    urls: "stun:stun.l.google.com:19302",
+                },
 
+            ],
+        }
+    );
     //answer와 offer 서로 교환 끝나면 이거 필요
     console.log('내 피어', myPeerConnection);
     myPeerConnection.addEventListener('icecandidate', (event) => {
