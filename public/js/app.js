@@ -27,7 +27,7 @@ async function getMedia(deviceId) {
         myStream = await navigator.mediaDevices.getUserMedia(
             deviceId ? camerConstraints : initialConstraints
         );
-
+        myFace.volume = 0;
         myFace.srcObject = myStream;
         if (!deviceId) {
             await getCamers();
@@ -226,6 +226,7 @@ function handleIce(data, roomName) {
 
 function handleAddStream(data) {
     const peersFace = document.getElementById('peersFace');
+    peersFace.volume = 0;
     peersFace.srcObject = data.stream;
     console.log('내 피어로부터 이벤트 받았어');
     console.log('학선님 stream', data.stream);
