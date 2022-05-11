@@ -173,36 +173,7 @@ socket.on('ice', (ice, roomName) => {
     console.log('candidate 받았어');
     myPeerConnection.addIceCandidate(ice, roomName);
 });
-// const configs = {
-//     iceServers: [
-//         {
-//             urls: "stun:stun.l.google.com:19302",
-//         },
-//         {
-//             urls: "turn:192.158.29.39:3478?transport=udp",
-//             credential: "JZEOEt2V3Qb0y27GRntt2u2PAYA=",
-//             username: "28224511:1379330808",
-//         },
-//         {
-//             urls: "turn:192.158.29.39:3478?transport=tcp",
-//             credential: "JZEOEt2V3Qb0y27GRntt2u2PAYA=",
-//             username: "28224511:1379330808",
-//         },
 
-//     ],
-// };
-// const peerConnectionOptions = {
-//     optional: [
-//         {
-//             DtlsSrtpKeyAgreement: true,
-//         },
-//     ],
-// };
-// {
-//     urls: "turn:TURN_IP:3478",
-//     username: "test",
-//     credential: "pass",
-// }
 
 //---------------------WEB RTC  코드
 // 이 함수로 기존에 있던 사람과 들어온 사람의 stream을 연결해준다.
