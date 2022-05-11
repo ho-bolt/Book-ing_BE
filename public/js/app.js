@@ -184,21 +184,26 @@ function makeConnection() {
     // 안정적이고 효율적으로 통신하게 처리하는 webRTC 컴포넌트 
     myPeerConnection = new RTCPeerConnection(
         {
-            'iceServers': [
+            iceServers: [
                 {
-                    'url': 'stun:stun.l.google.com:19302'
+                    urls: "stun:openrelay.metered.ca:80",
                 },
                 {
-                    'url': 'turn:192.158.29.39:3478?transport=udp',
-                    'credential': 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
-                    'username': '28224511:1379330808'
+                    urls: "turn:openrelay.metered.ca:80",
+                    username: "openrelayproject",
+                    credential: "openrelayproject",
                 },
                 {
-                    'url': 'turn:192.158.29.39:3478?transport=tcp',
-                    'credential': 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
-                    'username': '28224511:1379330808'
-                }
-            ]
+                    urls: "turn:openrelay.metered.ca:443",
+                    username: "openrelayproject",
+                    credential: "openrelayproject",
+                },
+                {
+                    urls: "turn:openrelay.metered.ca:443?transport=tcp",
+                    username: "openrelayproject",
+                    credential: "openrelayproject",
+                },
+            ],
         }
     );
     //answer와 offer 서로 교환 끝나면 이거 필요
