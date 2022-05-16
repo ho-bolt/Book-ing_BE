@@ -255,10 +255,10 @@ function makeConnection(remoteSocketId) {
 }
 
 function handleIce(data, remoteSocketId) {
-    console.log('candidate 보냄 ');
+    // console.log('candidate 보냄 ');
     // candidate===data
     socket.emit('ice', data.candidate, remoteSocketId);
-    console.log("아이스", data.candidate)
+    // console.log("아이스", data.candidate)
 }
 
 function handleAddStream(data, remoteSocketId) {
