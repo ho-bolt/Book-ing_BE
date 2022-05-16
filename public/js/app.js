@@ -231,7 +231,7 @@ function makeConnection(remoteSocketId) {
         handleIce(event, remoteSocketId)
     });
     // myPeerConnection.addEventListener('addstream', handleAddStream(data, remoteSocketId));
-    myPeerConnection.addEventListener('addstream', (data) => {
+    myPeerConnection.addEventListener('track', (data) => {
         console.log('애드 스트림', data)
         handleAddStream(data, remoteSocketId)
     })
