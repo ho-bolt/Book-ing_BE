@@ -157,7 +157,7 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
             //RTCPerrconnection생성
             console.log("@@", userObjArr[i + 1].socketId)
             const newPc = makeConnection(
-                userObjArr[i].socketId,
+                userObjArr[i + 1].socketId,
             );
             console.log("새 pc", newPc)
             const offer = await myPeerConnection.createOffer();
