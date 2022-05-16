@@ -146,7 +146,7 @@ welcomeForm.addEventListener('submit', handleWelcomeSubmit);
 //먼저 들어온 사람(서호진)
 socket.on('welcome', async (userObjArr, socketIdformserver) => {
     // console.log("누구야?", userObjArr)
-    let len = userObjArr.length;
+    const len = userObjArr.length;
     // console.log("들어있는 사람들 수", len)
     // console.log("새로 들어온 사람 id", socketIdformserver)
 
@@ -154,8 +154,6 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
     if (len === 1) {
         return;
     }
-
-
     for (let i = 0; i < len - 1; i++) {
         console.log('누군가 들어왔어요!');
         //가장 최근에 들어온 브라우저 제외
