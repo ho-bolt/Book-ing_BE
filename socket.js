@@ -27,7 +27,7 @@ io.on('connection', (socket) => {
         myRoomName = roomName;
 
         let isRoomExits = true;
-        let targetRoomObj = null;
+        let targetRoomObj = {};
 
         if (!isRoomExits) {
             targetRoomObj = {
