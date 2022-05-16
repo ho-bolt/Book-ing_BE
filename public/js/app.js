@@ -205,6 +205,7 @@ socket.on('ice', async (ice, remoteSocketId) => {
 function makeConnection(remoteSocketId) {
     //RTCPeerConnection == 암호화 및 대역폭 관리 오디오 또는 비디오 연결, peer 들 간의 데이터를
     // 안정적이고 효율적으로 통신하게 처리하는 webRTC 컴포넌트 
+    console.log('makeConnection안에 있는 리모트 소켓 아이디', remoteSocketId)
     myPeerConnection = new RTCPeerConnection(
         {
             iceServers: [
