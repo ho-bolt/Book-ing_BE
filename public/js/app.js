@@ -245,7 +245,7 @@ function makeConnection(remoteSocketId) {
     // myPeerConnection.addEventListener('addstream', handleAddStream(data, remoteSocketId));
 
     myPeerConnection.addEventListener('track', (data) => {
-        console.log('애드 스트림', data)
+        // console.log('애드 스트림', data)
         handleAddStream(data, remoteSocketId)
 
 
@@ -272,7 +272,7 @@ function handleAddStream(data, remoteSocketId) {
     console.log("들어올 id들", remoteSocketId)
     const peerStream = data.streams[0]
 
-    console.log("@@@@@", peerStream)
+    // console.log("@@@@@", peerStream)
     if (data.track.kind === 'video') {
         paintPeerFace(peerStream, remoteSocketId)
     }
@@ -282,7 +282,7 @@ function handleAddStream(data, remoteSocketId) {
 
 async function paintPeerFace(peerStream, id) {
     try {
-        console.log('들어오는 id들', id)
+        console.log('비디어 그릴려고 들어오는 id들', id)
         const videoGrid = document.querySelector('#video-grid')
         const video = document.createElement('video')
         const div = document.createElement('div')
