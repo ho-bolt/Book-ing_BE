@@ -161,9 +161,12 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
                 userObjArr[i + 1].socketId,
             );
             console.log("새 pc", newPc)
+            //첨 있던 애가 offer 만들고
             const offer = await myPeerConnection.createOffer();
+            //새로 들어온 애가 그 offer set
             await newPc.setLocalDescription(offer)
-            socket.emit('offer', offer, userObjArr[i].socketId);
+
+            socket.emit('offer', offer, userObjArr[i + 1].socketId);
         } catch (err) {
             console.log(err)
         }
