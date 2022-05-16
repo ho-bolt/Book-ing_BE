@@ -230,7 +230,7 @@ function makeConnection(remoteSocketId) {
     myPeerConnection.addEventListener('icecandidate', (event) => {
         handleIce(event, remoteSocketId)
     });
-    myPeerConnection.addEventListener('addstream', handleAddStream);
+    myPeerConnection.addEventListener('addstream', handleAddStream(data, remoteSocketId));
 
     // console.log(myStream.getTracks())
     //내 장치들을 offer에 넣어준다.
@@ -255,6 +255,7 @@ function handleIce(data, remoteSocketId) {
 function handleAddStream(data, remoteSocketId) {
     console.log("비디오 그리기!!!!", peerStream)
     const peerStream = data.streams[0]
+    console.log("@@@@@", peerStream)
     if (data.track.kind === 'video') {
         paintPeerFace(peerStream, remoteSocketId)
     }
