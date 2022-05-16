@@ -261,8 +261,8 @@ function handleIce(data, remoteSocketId) {
     console.log("아이스", data.candidate)
 }
 
-console.log("들어올 id들", remoteSocketId)
 function handleAddStream(data, remoteSocketId) {
+    console.log("들어올 id들", remoteSocketId)
     const peerStream = data.streams[0]
 
     console.log("@@@@@", peerStream)
