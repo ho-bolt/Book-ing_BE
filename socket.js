@@ -35,7 +35,9 @@ io.on('connection', (socket) => {
                 currentNum: 0,
                 users: [],
             }
+            console.log('타겟 룸', targetRoomObj)
             roomObjArr.push(targetRoomObj)
+            console.log('방 배열', roomObjArr)
         }
         targetRoomObj.users.push({
             socketId: socket.id
