@@ -161,8 +161,10 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
         try {
             //RTCPerrconnection생성
             console.log("번호", i)
-            if (i === 0) {
-                continue;
+            if (len >= 2) {
+                if (i === 0) {
+                    continue;
+                }
             }
             const newPc = makeConnection(
                 userObjArr[i + 1].socketId,
