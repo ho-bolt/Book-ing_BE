@@ -231,8 +231,14 @@ function makeConnection(remoteSocketId) {
     //2명 이상일 때만 실행
     collectiSoketId.push(remoteSocketId)
     console.log("들어온 사람들", collectiSoketId)
+    for (let i = 0; i < collectiSoketId.length; i++) {
+        if (collectiSoketId[i] === collectiSoketId[i + 1]) {
+            collectiSoketId.splice(i + 1, 1)
+        }
+    }
+    console.log("@@2", collectiSoketId)
     //answer와 offer 서로 교환 끝나면 이거 필요
-    console.log('첨 들어온 사람 피어', myPeerConnection);
+    // console.log('첨 들어온 사람 피어', myPeerConnection);
     myPeerConnection.addEventListener('icecandidate', (event) => {
         handleIce(event, remoteSocketId)
     });
