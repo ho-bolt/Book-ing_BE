@@ -240,9 +240,9 @@ function makeConnection(remoteSocketId) {
 
     myPeerConnection.addEventListener('track', (data) => {
         console.log('애드 스트림', data)
-        if (!collectiSoketId.includes(remoteSocketId)) {
-            handleAddStream(data, remoteSocketId)
-        }
+
+        handleAddStream(data, remoteSocketId)
+
     });
 
     // console.log(myStream.getTracks())
@@ -270,8 +270,8 @@ function handleAddStream(data, remoteSocketId) {
 
     console.log("@@@@@", peerStream)
     if (data.track.kind === 'video') {
-
-        paintPeerFace(peerStream, remoteSocketId)
+        if (!collectiSoketId.includes(remoteSocketId))
+            paintPeerFace(peerStream, remoteSocketId)
     }
     // const peersFace = document.getElementById('peersFace');
     // peersFace.srcObject = data.stream;
