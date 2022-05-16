@@ -150,7 +150,7 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
     console.log("들어있는 사람들 수", len)
 
 
-    for (let i = 0; i < len; i++) {
+    for (let i = 0; i < len - 1; i++) {
         try {
             //RTCPerrconnection생성
             const newPc = makeConnection(
@@ -220,6 +220,8 @@ function makeConnection(remoteSocketId) {
             ]
         }
     );
+    //2명 이상일 때만 실행
+
     //answer와 offer 서로 교환 끝나면 이거 필요
     console.log('내 피어', myPeerConnection);
     myPeerConnection.addEventListener('icecandidate', (event) => {
