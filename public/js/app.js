@@ -273,6 +273,7 @@ function handleAddStream(data, remoteSocketId) {
 
 async function paintPeerFace(peerStream, id) {
     try {
+        console.log("들어온 사람 비디오 그리기")
         const videoGrid = document.querySelector('#video-grid')
         const video = document.createElement('video')
         const div = document.createElement('div')
