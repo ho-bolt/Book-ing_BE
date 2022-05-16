@@ -231,11 +231,11 @@ function makeConnection(remoteSocketId) {
         handleIce(event, remoteSocketId)
     });
     console.log("여기 오니?1")
-    myPeerConnection.addEventListener('addstream', handleAddStream(data, remoteSocketId));
-    // myPeerConnection.addEventListener('addstream', (data) => {
-    //     console.log('애드 스트림', data)
-    //     handleAddStream(data, remoteSocketId)
-    // });
+    // myPeerConnection.addEventListener('addstream', handleAddStream(data, remoteSocketId));
+    myPeerConnection.addEventListener('addstream', (data) => {
+        console.log('애드 스트림', data)
+        handleAddStream(data, remoteSocketId)
+    });
 
     // console.log(myStream.getTracks())
     //내 장치들을 offer에 넣어준다.
