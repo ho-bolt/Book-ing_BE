@@ -235,10 +235,12 @@ function makeConnection(remoteSocketId) {
         handleIce(event, remoteSocketId)
     });
     // myPeerConnection.addEventListener('addstream', handleAddStream(data, remoteSocketId));
+
     myPeerConnection.addEventListener('track', (data) => {
         console.log('애드 스트림', data)
-
-        handleAddStream(data, remoteSocketId)
+        if (data.track.id !== data.track.id) {
+            handleAddStream(data, remoteSocketId)
+        }
     });
 
     // console.log(myStream.getTracks())
