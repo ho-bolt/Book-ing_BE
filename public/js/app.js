@@ -134,8 +134,8 @@ async function handleWelcomeSubmit(event) {
     //방에 들어가서 내 장치 가져옴
     await initMedia();
     console.log('방에 들어간다');
-    socket.emit('join_room', { roomName: input.value });
-    // roomName = input.value;
+    socket.emit('join_room', input.value);
+    roomName = input.value;
     input.value = '';
 }
 
