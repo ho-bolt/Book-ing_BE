@@ -124,7 +124,7 @@ async function initMedia() {
     call.hidden = false;
     // 내 장치(카메라 오디오)를 가져옴
     await getMedia();
-    makeConnection();
+    makeConnection(socket.id);
 }
 //방 이름 넣고 방에 들어가기
 async function handleWelcomeSubmit(event) {
@@ -152,8 +152,8 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
 
     for (let i = 0; i < len; i++) {
         try {
+            //RTCPerrconnection생성
             const newPc = makeConnection(
-                //RTCPerrconnection생성
                 userObjArr[i].socketId,
             );
             console.log("새 pc", newPc)
