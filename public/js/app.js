@@ -178,7 +178,7 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
 socket.on('offer', async (offer, remoteSocketId) => {
     try {
 
-        console.log("내 offer랑 socketId", remoteSocketId)
+        // console.log("내 offer랑 socketId", remoteSocketId)
         //이건 서호진 offer
         //이거 아직 없음 왜냐하면 존나 빨라서
         const newPc = makeConnection(remoteSocketId)
@@ -195,12 +195,12 @@ socket.on('offer', async (offer, remoteSocketId) => {
 //먼저 들어와있던 사람(서호진)
 socket.on('answer', async (answer, remoteSocketId) => {
     // myPeerConnection.setRemoteDescription(answer);
-    console.log("컴퓨터 객체", pcObj)
+    // console.log("컴퓨터 객체", pcObj)
     await pcObj[remoteSocketId].setRemoteDescription(answer)
 });
 //서로 정보(offer)교환 끝 그럼 이제 icecandidate server교환만 남음
 socket.on('ice', async (ice, remoteSocketId) => {
-    console.log('candidate 받았어');
+    // console.log('candidate 받았어');
     await pcObj[remoteSocketId].addIceCandidate(ice)
     // myPeerConnection.addIceCandidate(ice, roomName);
 });
@@ -269,7 +269,7 @@ function handleIce(data, remoteSocketId) {
 }
 
 function handleAddStream(data, remoteSocketId) {
-    console.log("들어올 id들", remoteSocketId)
+    // console.log("들어올 id들", remoteSocketId)
     const peerStream = data.streams[0]
 
     // console.log("@@@@@", peerStream)
