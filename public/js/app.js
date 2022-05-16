@@ -240,6 +240,7 @@ function makeConnection(remoteSocketId) {
 
 
     pcObj[remoteSocketId] = myPeerConnection;
+    return myPeerConnection
 }
 
 function handleIce(data, remoteSocketId) {
