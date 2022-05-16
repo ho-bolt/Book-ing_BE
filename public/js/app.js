@@ -260,7 +260,8 @@ function handleIce(data, remoteSocketId) {
 
 function handleAddStream(data, remoteSocketId) {
     console.log("뭘까??", data.streams)
-    const peerStream = data.streams
+    const peerStream = data.streams[0]
+    console.log("비디오!!!", data.track.kind)
     console.log("비디오 그리기!!!!", peerStream)
     console.log("@@@@@", peerStream)
     if (data.track.kind === 'video') {
