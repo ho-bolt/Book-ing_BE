@@ -145,12 +145,13 @@ welcomeForm.addEventListener('submit', handleWelcomeSubmit);
 
 //먼저 들어온 사람(서호진)
 socket.on('welcome', async (userObjArr, socketIdformserver) => {
-    console.log('누군가 들어왔어요!');
     let len = userObjArr.length;
     console.log("들어있는 사람들 수", len)
 
 
+    //누군가 들어왔을 때 실행
     for (let i = 0; i < len - 1; i++) {
+        console.log('누군가 들어왔어요!');
         try {
             //RTCPerrconnection생성
             const newPc = makeConnection(

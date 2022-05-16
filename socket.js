@@ -26,7 +26,7 @@ io.on('connection', (socket) => {
     socket.on('join_room', (roomName) => {
         myRoomName = roomName;
 
-        let isRoomExits = false;
+        let isRoomExits = true;
         let targetRoomObj = null;
 
         if (!isRoomExits) {
