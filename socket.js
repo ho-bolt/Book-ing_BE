@@ -25,17 +25,26 @@ io.on('connection', (socket) => {
 
     socket.on('join_room', (roomName) => {
 
-        // let isRoomExits = true;
+        let isRoomExits = true;
         let targetRoomObj = {};
 
+        for (let i = 0; i < roomObjArr.length; i++) {
+            if (roomObjArr[i].roomName === roomName) {
+                isRoomExits = true;
+                targetRoomObj = roomObjArr[i]
+                break
+            }
+        }
+        if (!isRoomExits) {
 
-        targetRoomObj = {
-            roomName,
-            currentNum: 0,
-            users: [],
+            targetRoomObj = {
+                roomName,
+                currentNum: 0,
+                users: [],
+            }
+            roomObjArr.push(targetRoomObj)
         }
         console.log('타겟 룸', targetRoomObj)
-        roomObjArr.push(targetRoomObj)
 
         console.log('방 배열', roomObjArr)
 
