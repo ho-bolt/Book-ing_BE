@@ -43,6 +43,7 @@ io.on('connection', (socket) => {
         targetRoomObj.currentNum++;
 
         socket.join(roomName);
+        console.log(`${roomName}에 들어간다`)
         socket.emit('welcome', targetRoomObj.users, socket.id);
     });
 
