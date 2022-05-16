@@ -166,6 +166,11 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
                     continue;
                 }
             }
+            if (len > 3) {
+                if (i === 1) {
+                    continue;
+                }
+            }
             const newPc = makeConnection(
                 userObjArr[i + 1].socketId,
             );
