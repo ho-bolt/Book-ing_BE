@@ -21,10 +21,9 @@ const io = require('socket.io')(server, {
 console.log('소켓 서버도 실행!');
 
 io.on('connection', (socket) => {
-    let myRoomName = null;
+
 
     socket.on('join_room', (roomName) => {
-        myRoomName = roomName;
 
         // let isRoomExits = true;
         let targetRoomObj = {};
@@ -44,7 +43,7 @@ io.on('connection', (socket) => {
             socketId: socket.id
         })
         targetRoomObj.currentNum++;
-
+        console.log("룸에 들어간 이후 ", targetRoomObj)
         socket.join(roomName);
         console.log("방이름?", roomName)
         console.log(`${roomName}에 들어간다`)
