@@ -280,19 +280,27 @@ function handleAddStream(data, remoteSocketId) {
     // peersFace.srcObject = data.stream;
 }
 
+let userSocketIds = [];
 async function paintPeerFace(peerStream, id) {
     try {
         console.log('비디어 그릴려고 들어오는 id들', id)
-        const videoGrid = document.querySelector('#video-grid')
-        const video = document.createElement('video')
-        const div = document.createElement('div')
-        div.id = id;
-        video.autoplay = true;
-        video.playsInline = true;
-        video.srcObject = peerStream;
-        div.appendChild(video);
-        videoGrid.appendChild(div);
-
+        userSocketIds.push("그리려고 들어온 사람들", id)
+        for (let i = 0; i < userSocketIds.length; i++) {
+            if (userSocketIds[i] === userSocketIds[i + 1]) {
+                userSocketIds.splice(i + 1, 1)
+            }
+        }
+        if (!userSocketIds.includes(id)) {
+            const videoGrid = document.querySelector('#video-grid')
+            const video = document.createElement('video')
+            const div = document.createElement('div')
+            div.id = id;
+            video.autoplay = true;
+            video.playsInline = true;
+            video.srcObject = peerStream;
+            div.appendChild(video);
+            videoGrid.appendChild(div);
+        }
     } catch (err) {
         console.log(err)
     }
