@@ -153,11 +153,12 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
     //누군가 들어왔을 때 실행
     for (let i = 0; i < len - 1; i++) {
         console.log('누군가 들어왔어요!');
+        //가장 최근에 들어온 브라우저 제외
         try {
             //RTCPerrconnection생성
-            console.log("@@", userObjArr[i].socketId)
+            console.log("@@", userObjArr[i + 1].socketId)
             const newPc = makeConnection(
-                userObjArr[i].socketId,
+                userObjArr[i + 1].socketId,
             );
             console.log("새 pc", newPc)
             const offer = await myPeerConnection.createOffer();
@@ -227,11 +228,10 @@ function makeConnection(remoteSocketId) {
     //2명 이상일 때만 실행
 
     //answer와 offer 서로 교환 끝나면 이거 필요
-    console.log('내 피어', myPeerConnection);
+    console.log('첨 들어온 사람 피어', myPeerConnection);
     myPeerConnection.addEventListener('icecandidate', (event) => {
         handleIce(event, remoteSocketId)
     });
-    console.log("여기 오니?1")
     // myPeerConnection.addEventListener('addstream', handleAddStream(data, remoteSocketId));
     myPeerConnection.addEventListener('track', (data) => {
         console.log('애드 스트림', data)
@@ -240,7 +240,6 @@ function makeConnection(remoteSocketId) {
 
     // console.log(myStream.getTracks())
     //내 장치들을 offer에 넣어준다.
-    console.log("여기 오니?2")
     myStream
         .getTracks()
         .forEach((track) => myPeerConnection.addTrack(track, myStream));
