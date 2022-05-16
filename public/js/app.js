@@ -259,8 +259,8 @@ function handleIce(data, remoteSocketId) {
 }
 
 function handleAddStream(data, remoteSocketId) {
-    console.log("비디오 그리기!!!!", peerStream)
     const peerStream = data.streams[0]
+    console.log("비디오 그리기!!!!", peerStream)
     console.log("@@@@@", peerStream)
     if (data.track.kind === 'video') {
         paintPeerFace(peerStream, remoteSocketId)
