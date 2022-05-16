@@ -192,6 +192,7 @@ socket.on('offer', async (offer, remoteSocketId) => {
 //먼저 들어와있던 사람(서호진)
 socket.on('answer', async (answer, remoteSocketId) => {
     // myPeerConnection.setRemoteDescription(answer);
+    console.log("컴퓨터 객체", pcObj)
     await pcObj[remoteSocketId].setRemoteDescription(answer)
 });
 //서로 정보(offer)교환 끝 그럼 이제 icecandidate server교환만 남음
@@ -281,8 +282,8 @@ async function paintPeerFace(peerStream, id) {
         video.autoplay = true;
         video.playsInline = true;
         video.srcObject = peerStream;
-        div.appendChild(video)
-        videoGrid.appendChild(div)
+        div.appendChild(video);
+        videoGrid.appendChild(div);
 
     } catch (err) {
         console.log(err)
