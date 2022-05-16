@@ -230,7 +230,10 @@ function makeConnection(remoteSocketId) {
     myPeerConnection.addEventListener('icecandidate', (event) => {
         handleIce(event, remoteSocketId)
     });
-    myPeerConnection.addEventListener('addstream', handleAddStream(data, remoteSocketId));
+    // myPeerConnection.addEventListener('addstream', handleAddStream(data, remoteSocketId));
+    myPeerConnection.addEventListener('track', (data) => {
+        handleAddStream(data, remoteSocketId)
+    })
 
     // console.log(myStream.getTracks())
     //내 장치들을 offer에 넣어준다.
