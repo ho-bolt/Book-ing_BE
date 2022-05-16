@@ -25,7 +25,7 @@ io.on('connection', (socket) => {
 
     socket.on('join_room', (roomName) => {
 
-        let isRoomExits = true;
+        let isRoomExits = false;
         let targetRoomObj = {};
 
         for (let i = 0; i < roomObjArr.length; i++) {
@@ -36,7 +36,6 @@ io.on('connection', (socket) => {
             }
         }
         if (!isRoomExits) {
-
             targetRoomObj = {
                 roomName,
                 currentNum: 0,
