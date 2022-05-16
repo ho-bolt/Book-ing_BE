@@ -223,7 +223,7 @@ function makeConnection(remoteSocketId) {
     //answer와 offer 서로 교환 끝나면 이거 필요
     console.log('내 피어', myPeerConnection);
     myPeerConnection.addEventListener('icecandidate', (event) => {
-        handleIce(event, roomName)
+        handleIce(event, remoteSocketId)
     });
     myPeerConnection.addEventListener('addstream', handleAddStream);
 
@@ -237,11 +237,13 @@ function makeConnection(remoteSocketId) {
     pcObj[remoteSocketId] = myPeerConnection;
 }
 
-function handleIce(data, roomName) {
+function handleIce(data, remoteSocketId) {
     console.log('candidate 보냄 ');
     // candidate===data
-    socket.emit('ice', data.candidate, roomName);
+    socket.emit('ice', data.candidate, remoteSocketId);
     console.log('데이터', data);
+    console.log("아이스", data.candidate)
+    console.log('리모트 소켓 아이디', remoteSocketId)
 }
 
 function handleAddStream(data, remoteSocketId) {
