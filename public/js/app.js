@@ -270,8 +270,9 @@ function handleAddStream(data, remoteSocketId) {
 
     console.log("@@@@@", peerStream)
     if (data.track.kind === 'video') {
-        if (!collectiSoketId.includes(remoteSocketId))
+        if (!collectiSoketId.includes(remoteSocketId)) {
             paintPeerFace(peerStream, remoteSocketId)
+        }
     }
     // const peersFace = document.getElementById('peersFace');
     // peersFace.srcObject = data.stream;
