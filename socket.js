@@ -37,6 +37,7 @@ io.on('connection', (socket) => {
         }
         console.log('타겟 룸', targetRoomObj)
         roomObjArr.push(targetRoomObj)
+
         console.log('방 배열', roomObjArr)
 
         targetRoomObj.users.push({
@@ -47,7 +48,7 @@ io.on('connection', (socket) => {
         socket.join(roomName);
         console.log("방이름?", roomName)
         console.log(`${roomName}에 들어간다`)
-        socket.emit('welcome', targetRoomObj.users, socket.id);
+        socket.to(roomName).emit('welcome', targetRoomObj.users, socket.id);
     });
 
     socket.on('offer', (offer, remoteSocketId) => {
