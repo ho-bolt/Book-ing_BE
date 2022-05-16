@@ -246,7 +246,10 @@ function makeConnection(remoteSocketId) {
 
     myPeerConnection.addEventListener('track', (data) => {
         console.log('애드 스트림', data)
-        handleAddStream(data, remoteSocketId)
+        if (collectiSoketId.includes(remoteSocketId)) {
+
+            handleAddStream(data, remoteSocketId)
+        }
 
     });
     // console.log(myStream.getTracks())
