@@ -238,14 +238,11 @@ function makeConnection(remoteSocketId) {
     });
     // myPeerConnection.addEventListener('addstream', handleAddStream(data, remoteSocketId));
 
-    if (!collectiSoketId.includes(remoteSocketId)) {
-        myPeerConnection.addEventListener('track', (data) => {
-            console.log('애드 스트림', data)
+    myPeerConnection.addEventListener('track', (data) => {
+        console.log('애드 스트림', data)
+        handleAddStream(data, remoteSocketId)
 
-            handleAddStream(data, remoteSocketId)
-
-        });
-    }
+    });
     // console.log(myStream.getTracks())
     //내 장치들을 offer에 넣어준다.
     myStream
@@ -261,11 +258,10 @@ function handleIce(data, remoteSocketId) {
     console.log('candidate 보냄 ');
     // candidate===data
     socket.emit('ice', data.candidate, remoteSocketId);
-    console.log('데이터', data);
     console.log("아이스", data.candidate)
-    console.log('리모트 소켓 아이디', remoteSocketId)
 }
 
+console.log("들어올 id들", remoteSocketId)
 function handleAddStream(data, remoteSocketId) {
     const peerStream = data.streams[0]
 
