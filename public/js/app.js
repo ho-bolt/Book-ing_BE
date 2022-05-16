@@ -148,7 +148,7 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
     console.log("누구야?", userObjArr)
     let len = userObjArr.length;
     console.log("들어있는 사람들 수", len)
-
+    console.log("새로 들어온 사람 id", socketIdformserver)
 
     //누군가 들어왔을 때 실행
     for (let i = 0; i < len - 1; i++) {
