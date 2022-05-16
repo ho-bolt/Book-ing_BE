@@ -151,7 +151,9 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
     console.log("새로 들어온 사람 id", socketIdformserver)
 
     //누군가 들어왔을 때 실행
-    for (let i = 0; i < len - 1; i++) {
+    let i;
+    console.log("RR", i)
+    for (i = 0; i < len - 1; i++) {
         console.log('누군가 들어왔어요!');
         //가장 최근에 들어온 브라우저 제외
         try {
@@ -159,7 +161,6 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
             const newPc = makeConnection(
                 userObjArr[i + 1].socketId,
             );
-            console.log("새 pc", newPc)
             //첨 있던 애가 offer 만들고
             const offer = await myPeerConnection.createOffer();
             //새로 들어온 애가 그 offer set
@@ -280,28 +281,18 @@ function handleAddStream(data, remoteSocketId) {
     // peersFace.srcObject = data.stream;
 }
 
-let userSocketIds = [];
 async function paintPeerFace(peerStream, id) {
     try {
-        console.log('비디어 그릴려고 들어오는 id', id)
-        userSocketIds.push(id)
-        console.log("그리려고 들어온 사람들", userSocketIds)
-        for (let i = 0; i < userSocketIds.length; i++) {
-            if (userSocketIds[i] === userSocketIds[i + 1]) {
-                userSocketIds.splice(i + 1, 1)
-            }
-        }
-        if (!userSocketIds.includes(id)) {
-            const videoGrid = document.querySelector('#video-grid')
-            const video = document.createElement('video')
-            const div = document.createElement('div')
-            div.id = id;
-            video.autoplay = true;
-            video.playsInline = true;
-            video.srcObject = peerStream;
-            div.appendChild(video);
-            videoGrid.appendChild(div);
-        }
+
+        const videoGrid = document.querySelector('#video-grid')
+        const video = document.createElement('video')
+        const div = document.createElement('div')
+        div.id = id;
+        video.autoplay = true;
+        video.playsInline = true;
+        video.srcObject = peerStream;
+        div.appendChild(video);
+        videoGrid.appendChild(div);
     } catch (err) {
         console.log(err)
     }
