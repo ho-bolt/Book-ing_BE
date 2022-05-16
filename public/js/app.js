@@ -161,7 +161,7 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
         try {
             //RTCPerrconnection생성
             console.log("번호", i)
-            if (len >= 2) {
+            if (len > 2) {
                 if (i === 0) {
                     continue;
                 }
