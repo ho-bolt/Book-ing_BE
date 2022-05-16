@@ -283,8 +283,9 @@ function handleAddStream(data, remoteSocketId) {
 let userSocketIds = [];
 async function paintPeerFace(peerStream, id) {
     try {
-        console.log('비디어 그릴려고 들어오는 id들', id)
-        userSocketIds.push("그리려고 들어온 사람들", id)
+        console.log('비디어 그릴려고 들어오는 id', id)
+        userSocketIds.push(id)
+        console.log("그리려고 들어온 사람들", userSocketIds)
         for (let i = 0; i < userSocketIds.length; i++) {
             if (userSocketIds[i] === userSocketIds[i + 1]) {
                 userSocketIds.splice(i + 1, 1)
