@@ -156,7 +156,6 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
         //가장 최근에 들어온 브라우저 제외
         try {
             //RTCPerrconnection생성
-            console.log("@@", userObjArr[i + 1].socketId)
             const newPc = makeConnection(
                 userObjArr[i + 1].socketId,
             );
@@ -238,6 +237,7 @@ function makeConnection(remoteSocketId) {
     // myPeerConnection.addEventListener('addstream', handleAddStream(data, remoteSocketId));
     myPeerConnection.addEventListener('track', (data) => {
         console.log('애드 스트림', data)
+
         handleAddStream(data, remoteSocketId)
     });
 
@@ -262,12 +262,11 @@ function handleIce(data, remoteSocketId) {
 }
 
 function handleAddStream(data, remoteSocketId) {
-    console.log("뭘까??", data.streams)
     const peerStream = data.streams[0]
-    console.log("비디오!!!", data.track.kind)
-    console.log("비디오 그리기!!!!", peerStream)
+
     console.log("@@@@@", peerStream)
     if (data.track.kind === 'video') {
+
         paintPeerFace(peerStream, remoteSocketId)
     }
     // const peersFace = document.getElementById('peersFace');
@@ -276,7 +275,7 @@ function handleAddStream(data, remoteSocketId) {
 
 async function paintPeerFace(peerStream, id) {
     try {
-        console.log("들어온 사람 비디오 그리기")
+        console.log('들어오는 id들', id)
         const videoGrid = document.querySelector('#video-grid')
         const video = document.createElement('video')
         const div = document.createElement('div')
