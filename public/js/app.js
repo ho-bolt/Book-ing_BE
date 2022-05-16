@@ -191,7 +191,7 @@ socket.on('answer', async (answer, remoteSocketId) => {
     await pcObj[remoteSocketId].setRemoteDescription(answer)
 });
 //서로 정보(offer)교환 끝 그럼 이제 icecandidate server교환만 남음
-socket.on('ice', (ice, remoteSocketId) => {
+socket.on('ice', async (ice, remoteSocketId) => {
     console.log('candidate 받았어');
     await pcObj[remoteSocketId].addIceCandidate(ice)
     // myPeerConnection.addIceCandidate(ice, roomName);
