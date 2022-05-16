@@ -232,7 +232,7 @@ function makeConnection(remoteSocketId) {
     });
     console.log("여기 오니?1")
     // myPeerConnection.addEventListener('addstream', handleAddStream(data, remoteSocketId));
-    myPeerConnection.addEventListener('addstream', (data) => {
+    myPeerConnection.addEventListener('track', (data) => {
         console.log('애드 스트림', data)
         handleAddStream(data, remoteSocketId)
     });
