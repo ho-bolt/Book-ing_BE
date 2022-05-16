@@ -209,6 +209,7 @@ socket.on('ice', async (ice, remoteSocketId) => {
 //---------------------WEB RTC  코드
 // 이 함수로 기존에 있던 사람과 들어온 사람의 stream을 연결해준다.
 //즉 peer to peer 연결을 수행한다.
+let collectiSoketId = []
 function makeConnection(remoteSocketId) {
     //RTCPeerConnection == 암호화 및 대역폭 관리 오디오 또는 비디오 연결, peer 들 간의 데이터를
     // 안정적이고 효율적으로 통신하게 처리하는 webRTC 컴포넌트 
@@ -228,7 +229,8 @@ function makeConnection(remoteSocketId) {
         }
     );
     //2명 이상일 때만 실행
-
+    collectiSoketId.push(remoteSocketId)
+    console.log("들어온 사람들", collectiSoketId)
     //answer와 offer 서로 교환 끝나면 이거 필요
     console.log('첨 들어온 사람 피어', myPeerConnection);
     myPeerConnection.addEventListener('icecandidate', (event) => {
@@ -238,9 +240,8 @@ function makeConnection(remoteSocketId) {
 
     myPeerConnection.addEventListener('track', (data) => {
         console.log('애드 스트림', data)
-        if (data.track.id !== data.track.id) {
-            handleAddStream(data, remoteSocketId)
-        }
+
+        handleAddStream(data, remoteSocketId)
     });
 
     // console.log(myStream.getTracks())
