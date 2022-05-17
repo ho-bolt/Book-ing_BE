@@ -1,4 +1,3 @@
-const { doc } = require("prettier");
 
 const socket = io();
 
@@ -233,6 +232,7 @@ socket.on('full', () => {
 
 socket.on('leave_room', (leaveSocketId) => {
     deleteVideo(leaveSocketId);
+
 })
 
 
