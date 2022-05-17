@@ -29,13 +29,13 @@ async function getMedia(deviceId) {
         myStream = await navigator.mediaDevices.getUserMedia(
             deviceId ? camerConstraints : initialConstraints
         );
-        console.log("내 스트림", myStream)
         myFace.volume = 0
         myFace.srcObject = myStream;
         if (!deviceId) {
             await getCamers();
-            await getAudios()
         }
+        console.log('오디오 가져올때 에러나나?')
+        await getAudios()
     } catch (err) {
         console.log(err);
     }

@@ -3,7 +3,7 @@ const http = require('http');
 const https = require('https');
 const credentials = require('./config/httpsConfig');
 
-const max = 5;
+const max = 10;
 let roomObjArr = [];
 let mediaStatus = {}
 let server = '';
