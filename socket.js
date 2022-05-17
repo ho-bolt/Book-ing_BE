@@ -3,7 +3,7 @@ const http = require('http');
 const https = require('https');
 const credentials = require('./config/httpsConfig');
 
-const max = 2;
+const max = 5;
 let roomObjArr = [];
 let mediaStatus = {}
 let server = '';
@@ -75,6 +75,22 @@ io.on('connection', (socket) => {
     socket.on('answer', (answer, remoteSocketId) => {
         socket.to(remoteSocketId).emit('answer', answer, socket.id);
     });
+
+    socket.on('disconnecting', async () => {
+        socket.to(roomName).emit('leave_room', socket.id)
+
+        for (let i = 0; i < roomObjArr.length; i++) {
+            if (roomObjArr[i].roomName === roomName) {
+                const newUsers = roomObjArr[i].users.filter(
+                    (user) => user.socketId !== socket.id
+                )
+                roomObjArr[i].users = newUsers
+                roomObjArr[i].currentNum--;
+                break;
+            }
+        }
+    })
+
     socket.on('ice', (ice, remoteSocketId) => {
         socket.to(remoteSocketId).emit('ice', ice, socket.id);
     });
