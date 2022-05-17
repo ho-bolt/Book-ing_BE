@@ -22,10 +22,10 @@ const io = require('socket.io')(server, {
 console.log('소켓 서버도 실행!');
 
 io.on('connection', (socket) => {
-
+    let myRoom = null;
 
     socket.on('join_room', (roomName) => {
-
+        myRoom = roomName;
         let isRoomExits = false;
         let targetRoomObj = {};
 
@@ -77,10 +77,10 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnecting', async () => {
-        socket.to(roomName).emit('leave_room', socket.id)
+        socket.to(myRoom).emit('leave_room', socket.id)
 
         for (let i = 0; i < roomObjArr.length; i++) {
-            if (roomObjArr[i].roomName === roomName) {
+            if (roomObjArr[i].roomName === myRoom) {
                 const newUsers = roomObjArr[i].users.filter(
                     (user) => user.socketId !== socket.id
                 )
