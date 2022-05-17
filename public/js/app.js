@@ -7,6 +7,7 @@ const myFace = document.getElementById('myFace');
 const muteBtn = document.getElementById('mute');
 let cameraBtn = document.getElementById('camera');
 const camersSelect = document.getElementById('cameras');
+const microphoneSelect = document.getElementById('microphone');
 let myStream;
 let muted = false;
 let cameraOff = false;
@@ -28,10 +29,12 @@ async function getMedia(deviceId) {
         myStream = await navigator.mediaDevices.getUserMedia(
             deviceId ? camerConstraints : initialConstraints
         );
+        console.log("내 스트림", myStream)
         myFace.volume = 0
         myFace.srcObject = myStream;
         if (!deviceId) {
             await getCamers();
+            await getAudios()
         }
     } catch (err) {
         console.log(err);
@@ -53,6 +56,7 @@ function handleMuteBtn() {
         muted = false;
     }
 }
+
 function handleCamerBtn() {
     //내 비디오 장치 가져옴
     console.log('내 비디오', myStream.getVideoTracks());
@@ -68,6 +72,26 @@ function handleCamerBtn() {
         cameraOff = false;
     }
 }
+async function getAudios() {
+    try {
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const audios = devices.filter((device) => device.kind === 'audioinput')
+        const currentMic = myStream.getAudioTracks();
+        console.log("오디오 가져온달", myStream.getAudioTracks());
+        audios.forEach((audio) => {
+            const option = document.createElement('option');
+            option.value = audio.deviceId;
+            option.innerText = audio.label;
+            if (currentMic.label == audios.label) {
+                option.selected = true;
+            }
+            microphoneSelect.appendChild(option)
+        })
+        console.log("오디오", audios)
+    } catch (err) {
+        console.log(err)
+    }
+}
 
 //내 카메라 정보를 모두 가져옴 (카메라를 바꿀 때 필요함 )
 async function getCamers() {
@@ -76,6 +100,7 @@ async function getCamers() {
         const devices = await navigator.mediaDevices.enumerateDevices();
         //내 비디오 찾기
         const camers = devices.filter((device) => device.kind === 'videoinput');
+        console.log("카메라만", camers)
         const currentCamera = myStream.getVideoTracks()[0];
         camers.forEach((camera) => {
             const option = document.createElement('option');
@@ -104,10 +129,16 @@ async function handleCameraChange() {
     }
 }
 
+async function handleMicroChange() {
+    await getMedia(microphoneSelect.value);
+
+}
+
 //음소거, 카메라 버튼
 muteBtn.addEventListener('click', handleMuteBtn);
 cameraBtn.addEventListener('click', handleCamerBtn);
 camersSelect.addEventListener('input', handleCameraChange);
+microphoneSelect.addEventListener('input', handleMicroChange);
 
 //================여기까지 장치 관련된 코드
 
@@ -127,12 +158,13 @@ async function initMedia() {
     await getMedia();
     makeConnection(socket.id);
 }
+
 //방 이름 넣고 방에 들어가기
 async function handleWelcomeSubmit(event) {
     event.preventDefault();
     const input = welcomeForm.querySelector('input');
     //백엔드로 join_room 이벤트로 보내면 같은 이름의 이벤트로 받는다.
-    //방에 들어가서 내 장치 가져옴
+    //방에 들어가기 전에 내 장치 가져옴
     await initMedia();
     console.log('방에 들어간다');
     socket.emit('join_room', input.value);
