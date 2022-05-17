@@ -3,6 +3,7 @@ const http = require('http');
 const https = require('https');
 const credentials = require('./config/httpsConfig');
 
+const max = 2;
 let roomObjArr = [];
 let mediaStatus = {}
 let server = '';
@@ -29,7 +30,16 @@ io.on('connection', (socket) => {
         let targetRoomObj = {};
 
         for (let i = 0; i < roomObjArr.length; i++) {
+            //같은 방 이름으로 들어오면 그 방에 참가
+
             if (roomObjArr[i].roomName === roomName) {
+
+                if (roomObjArr[i].currentNum >= max) {
+                    console.log(`${roomName}방은 정원 초과!`)
+                    socket.emit('full')
+                    return
+                }
+
                 isRoomExits = true;
                 targetRoomObj = roomObjArr[i]
                 break

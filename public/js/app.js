@@ -219,6 +219,11 @@ socket.on('ice', async (ice, remoteSocketId) => {
     // myPeerConnection.addIceCandidate(ice, roomName);
 });
 
+socket.on('full', () => {
+    alert('정원 초과입니다!');
+    history.replace('/');
+})
+
 
 //---------------------WEB RTC  코드
 // 이 함수로 기존에 있던 사람과 들어온 사람의 stream을 연결해준다.
@@ -269,8 +274,6 @@ function makeConnection(remoteSocketId) {
     myStream
         .getTracks()
         .forEach((track) => myPeerConnection.addTrack(track, myStream));
-
-
     pcObj[remoteSocketId] = myPeerConnection;
     return myPeerConnection
 }
