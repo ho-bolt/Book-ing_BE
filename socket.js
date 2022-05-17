@@ -89,7 +89,7 @@ io.on('connection', (socket) => {
                 break;
             }
         }
-        console.log("룸에 나간 이후 ", targetRoomObj)
+        console.log("룸에 나간 이후", roomObjArr)
     })
 
     socket.on('ice', (ice, remoteSocketId) => {
