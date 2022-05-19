@@ -451,10 +451,9 @@ async function updateStudy(req, res) {
  *
  */
 async function inoutStudy(req, res) {
-    // const { userId } = req.query;//임시 로그인 유저
-    const { userId } = res.locals.user;
+    const { userId } = req.query;
+    // const { userId } = res.locals.user;
     const { studyId, meetingId } = req.body;
-    // const { userId } = res.locals
 
     try {
         //받은 모임이 존재하는 지 체크

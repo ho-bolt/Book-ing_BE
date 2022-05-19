@@ -6,6 +6,7 @@ const socket = io();
 const myFace = document.getElementById('myFace');
 const muteBtn = document.getElementById('mute');
 let cameraBtn = document.getElementById('camera');
+const screenBtn = document.getElementById('screen')
 const camersSelect = document.getElementById('cameras');
 const microphoneSelect = document.getElementById('microphone');
 let myStream;
@@ -134,9 +135,32 @@ async function handleMicroChange() {
 
 }
 
+// const displayMediaStreamConstraints = {
+//     video: true // or pass HINTS
+// };
+
+// if (navigator.mediaDevices.getDisplayMedia) {
+//     navigator.mediaDevices.getDisplayMedia(displayMediaStreamConstraints).then(success).catch(error);
+// } else {
+//     navigator.getDisplayMedia(displayMediaStreamConstraints).then(success).catch(error);
+// }
+
+function shareScreen() {
+    navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
+        const screenTrack = stream.getTracks()[0];
+        senders.current.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
+        screenTrack.onended = function () {
+            senders.current.find(sender => sender.track.kind === 'video').replaceTrack(userStream.current.getTracks()[1]);
+        }
+    })
+}
+
+
+
 //음소거, 카메라 버튼
 muteBtn.addEventListener('click', handleMuteBtn);
 cameraBtn.addEventListener('click', handleCamerBtn);
+screenBtn.addEventListener('click', shareScreen);
 camersSelect.addEventListener('input', handleCameraChange);
 microphoneSelect.addEventListener('input', handleMicroChange);
 

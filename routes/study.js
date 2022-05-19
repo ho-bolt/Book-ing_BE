@@ -21,7 +21,7 @@ router.put(
     updateStudyValidation,
     studyController.updateStudy
 );
-router.post('/inout', authMiddleware, studyController.inoutStudy);
+router.post('/inout', studyController.inoutStudy);
 router.get('/:studyId/user', studyController.getStudyMembers);
 router.post('/kickuser', authMiddleware, studyController.kickUser);
 router.delete(
