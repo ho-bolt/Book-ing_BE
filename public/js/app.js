@@ -416,7 +416,7 @@ function deleteVideo(leavedSocketId) {
 //         }
 //     })
 // }
-document.getElementById('screen').addEventListener('click', async () => {
+document.getElementById('screen').addEventListener('click', async (remoteSocketId) => {
 
     let displayMediaStream = await navigator.mediaDevices.getDisplayMedia();
 
