@@ -414,7 +414,7 @@ async function shareScreen() {
         console.log("피어들", Object.keys(pcObj))
 
         Object.keys(pcObj).find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
-        const a = Object.keys(pcObj).map(sender => { })
+        const a = Object.keys(pcObj).map(sender => { return sender })
         console.log("@@@", a)
 
         screenTrack.onended = function () {
