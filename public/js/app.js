@@ -411,7 +411,7 @@ async function shareScreen() {
         const screenTrack = stream.getTracks()[0];
         console.log("피어들", Object.keys(pcObj))
         console.log("컴퓨터객체", pcObj.socketId)
-        pcObj.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
+        Object.keys(pcObj).find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
         screenTrack.onended = function () {
             pcObj.find(sender => sender.track.kind === 'video').replaceTrack(userStream.current.getTracks()[1]);
         }
