@@ -153,7 +153,7 @@ async function handleMicroChange() {
 //음소거, 카메라 버튼
 muteBtn.addEventListener('click', handleMuteBtn);
 cameraBtn.addEventListener('click', handleCamerBtn);
-// screenBtn.addEventListener('click', shareScreen);
+screenBtn.addEventListener('click', shareScreen);
 camersSelect.addEventListener('input', handleCameraChange);
 microphoneSelect.addEventListener('input', handleMicroChange);
 
@@ -405,25 +405,28 @@ function deleteVideo(leavedSocketId) {
 }
 
 
-// async function shareScreen() {
-//     console.log("AAa", myPeerConnection)
-//     navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
-//         const screenTrack = stream.getTracks()[0];
-//         console.log("컴퓨터객체", pcObj)
-//         pcObj.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
-//         screenTrack.onended = function () {
-//             pcObj.find(sender => sender.track.kind === 'video').replaceTrack(userStream.current.getTracks()[1]);
-//         }
-//     })
-// }
-document.getElementById('screen').addEventListener('click', async (remoteSocketId) => {
+async function shareScreen() {
+    console.log("AAa", myPeerConnection)
+    navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
+        const screenTrack = stream.getTracks()[0];
+        console.log("컴퓨터객체", pcObj)
+        pcObj.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
+        screenTrack.onended = function () {
+            pcObj.find(sender => sender.track.kind === 'video').replaceTrack(userStream.current.getTracks()[1]);
+        }
+    })
+}
 
-    let displayMediaStream = await navigator.mediaDevices.getDisplayMedia();
 
-    pcObj[remoteSocketId].find(sender => sender.track.kind === 'video').replaceTrack(displayMediaStream.getTracks()[0]);
+// document.getElementById('screen').addEventListener('click', async () => {
 
-    //show what you are showing in your "self-view" video.
-    document.getElementById('screenShare').srcObject = displayMediaStream;
+//     let displayMediaStream = await navigator.mediaDevices.getDisplayMedia();
 
-    //hide the share button and display the "stop-sharing" one
-});
+//     console.log("@@@", pcObj[remoteSocketId])
+//     pcObj[remoteSocketId].find(sender => sender.track.kind === 'video').replaceTrack(displayMediaStream.getTracks()[0]);
+
+//     //show what you are showing in your "self-view" video.
+//     document.getElementById('screenShare').srcObject = displayMediaStream;
+
+//     //hide the share button and display the "stop-sharing" one
+// });
