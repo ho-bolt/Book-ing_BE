@@ -308,6 +308,8 @@ socket.on('leave_room', (leaveSocketId) => {
 //---------------------WEB RTC  코드
 // 이 함수로 기존에 있던 사람과 들어온 사람의 stream을 연결해준다.
 //즉 peer to peer 연결을 수행한다.
+
+
 let collectiSoketId = []
 function makeConnection(remoteSocketId) {
     //RTCPeerConnection == 암호화 및 대역폭 관리 오디오 또는 비디오 연결, peer 들 간의 데이터를
@@ -418,7 +420,7 @@ document.getElementById('screen').addEventListener('click', async () => {
 
     let displayMediaStream = await navigator.mediaDevices.getDisplayMedia();
 
-    // pcObj.find(sender => sender.track.kind === 'video').replaceTrack(displayMediaStream.getTracks()[0]);
+    pcObj[remoteSocketId].find(sender => sender.track.kind === 'video').replaceTrack(displayMediaStream.getTracks()[0]);
 
     //show what you are showing in your "self-view" video.
     document.getElementById('screenShare').srcObject = displayMediaStream;
