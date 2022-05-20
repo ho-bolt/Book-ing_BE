@@ -409,7 +409,9 @@ async function shareScreen() {
     console.log("AAa", myPeerConnection)
     navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
         const screenTrack = stream.getTracks()[0];
+        console.log("피어들타입", typeof (Object.keys(pcObj)))
         console.log("피어들", Object.keys(pcObj))
+
         for (let i = 0; i < Object.keys(pcObj).length; i++) {
             Object.keys(pcObj)[i].find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
         }
