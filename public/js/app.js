@@ -332,8 +332,8 @@ function makeConnection(remoteSocketId) {
         }
     );
     //2명 이상일 때만 실행
-
     for (let i = 0; i < collectiSoketId.length; i++) {
+        console.log("콜렉트 소켓아이디", collectiSoketId)
         if (collectiSoketId[i] === collectiSoketId[i + 1]) {
             collectiSoketId.splice(i + 1, 1)
         }
