@@ -255,7 +255,7 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
             const offer = await myPeerConnection.createOffer();
             //새로 들어온 애가 그 offer set
             await newPc.setLocalDescription(offer)
-
+            console.log('offer 보냄')
             socket.emit('offer', offer, userObjArr[i + 1].socketId);
         } catch (err) {
             console.log(err)
@@ -269,14 +269,18 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
 socket.on('offer', async (offer, remoteSocketId) => {
     try {
 
-        // console.log("내 offer랑 socketId", remoteSocketId)
+        console.log("내 offer랑 socketId", remoteSocketId)
         //이건 서호진 offer
         //이거 아직 없음 왜냐하면 존나 빨라서
+        //들어온애 피어연결
         const newPc = makeConnection(remoteSocketId)
         await newPc.setRemoteDescription(offer);
         //학선님 answer
+        console.log('나중에 들어온 애 answer 만듬 ')
         const answer = await newPc.createAnswer();
+        console.log('로컬에 answer 세팅')
         await newPc.setLocalDescription(answer);
+        console.log('answer 보냄 ')
         socket.emit('answer', answer, remoteSocketId);
     } catch (err) {
         console.log(err)
@@ -286,7 +290,7 @@ socket.on('offer', async (offer, remoteSocketId) => {
 //먼저 들어와있던 사람(서호진)
 socket.on('answer', async (answer, remoteSocketId) => {
     // myPeerConnection.setRemoteDescription(answer);
-    // console.log("컴퓨터 객체", pcObj)
+    console.log("컴퓨터 객체", pcObj)
     await pcObj[remoteSocketId].setRemoteDescription(answer)
 });
 //서로 정보(offer)교환 끝 그럼 이제 icecandidate server교환만 남음

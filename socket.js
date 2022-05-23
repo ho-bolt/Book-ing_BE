@@ -82,11 +82,15 @@ io.on('connection', (socket) => {
     });
 
     socket.on('offer', (offer, remoteSocketId) => {
+        console.log("offer 받음")
         socket.to(remoteSocketId).emit('offer', offer, socket.id);
+        console.log('offer에 offer랑 소겟 아이디랑 보냄')
     });
 
     socket.on('answer', (answer, remoteSocketId) => {
+        console.log('answer 받음 ')
         socket.to(remoteSocketId).emit('answer', answer, socket.id);
+        console.log(`${socket.id}에 answer 보냄`)
     });
 
     socket.on('disconnecting', async () => {
