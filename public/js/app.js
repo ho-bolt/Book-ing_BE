@@ -338,6 +338,7 @@ function makeConnection(remoteSocketId) {
             collectiSoketId.splice(i + 1, 1)
         }
     }
+    console.log('콜렉트 소겟 아이디', collectiSoketId)
     //answer와 offer 서로 교환 끝나면 이거 필요
     // console.log('첨 들어온 사람 피어', myPeerConnection);
     myPeerConnection.addEventListener('icecandidate', (event) => {

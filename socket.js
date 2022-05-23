@@ -72,9 +72,12 @@ io.on('connection', (socket) => {
         })
         targetRoomObj.currentNum++;
         console.log(`입력한 룸 이름 : ${roomName}`, targetRoomObj)
+        //룸에 접속한다
         socket.join(roomName);
         console.log("방이름?", roomName)
         console.log(`${roomName}에 들어간다`)
+        //입력한 룸에 들어갈 때 유저와 소켓아이디 같이 보낸다. 
+        //룸에 접속한 유저에게 emit 한다.
         socket.to(roomName).emit('welcome', targetRoomObj.users, socket.id);
     });
 
