@@ -246,9 +246,11 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
                     continue;
                 }
             }
+            //누군가 들어왔을 때 나 빼고 다른 사람을 피어연결해준다. 
             const newPc = makeConnection(
                 userObjArr[i + 1].socketId,
             );
+            console.log('담에 들어온 사람 ', userObjArr[i + 1].socketId,)
             //첨 있던 애가 offer 만들고
             const offer = await myPeerConnection.createOffer();
             //새로 들어온 애가 그 offer set
@@ -355,6 +357,7 @@ function makeConnection(remoteSocketId) {
         .getTracks()
         .forEach((track) => myPeerConnection.addTrack(track, myStream));
     pcObj[remoteSocketId] = myPeerConnection;
+    senders.push(pcObj);
     return myPeerConnection
 }
 
@@ -405,18 +408,11 @@ function deleteVideo(leavedSocketId) {
 }
 
 
+
 async function shareScreen() {
-    console.log("AAa", myPeerConnection)
     navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
         const screenTrack = stream.getTracks()[0];
-        console.log("컴퓨터 객체", pcObj)
-        console.log("피어들타입", typeof (pcObj))
-        console.log("피어들", Object.keys(pcObj))
-
-        Object.keys(pcObj).find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
-        const a = Object.keys(pcObj).map(sender => { return sender })
-        console.log("@@@", a)
-
+        senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
         screenTrack.onended = function () {
             pcObj.find(sender => sender.track.kind === 'video').replaceTrack(userStream.current.getTracks()[1]);
         }
