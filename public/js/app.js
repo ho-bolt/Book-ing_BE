@@ -332,22 +332,26 @@ function makeConnection(remoteSocketId) {
         }
     );
     //2명 이상일 때만 실행
-    for (let i = 0; i < collectiSoketId.length; i++) {
-        console.log("콜렉트 소켓아이디", collectiSoketId)
-        if (collectiSoketId[i] === collectiSoketId[i + 1]) {
-            collectiSoketId.splice(i + 1, 1)
-        }
-    }
-    console.log('콜렉트 소겟 아이디', collectiSoketId)
+    // for (let i = 0; i < collectiSoketId.length; i++) {
+    //     console.log("콜렉트 소켓아이디", collectiSoketId)
+    //     if (collectiSoketId[i] === collectiSoketId[i + 1]) {
+    //         collectiSoketId.splice(i + 1, 1)
+    //     }
+    // }
+    // console.log('콜렉트 소겟 아이디', collectiSoketId)
     //answer와 offer 서로 교환 끝나면 이거 필요
     // console.log('첨 들어온 사람 피어', myPeerConnection);
+
+
     myPeerConnection.addEventListener('icecandidate', (event) => {
+        console.log("아이스 캔디에이트", event)
         handleIce(event, remoteSocketId)
     });
     // myPeerConnection.addEventListener('addstream', handleAddStream(data, remoteSocketId));
 
     myPeerConnection.addEventListener('track', (data) => {
-        // console.log('애드 스트림', data)
+
+        console.log('트랙(addstream) ', data)
         handleAddStream(data, remoteSocketId)
 
 
@@ -366,7 +370,7 @@ function handleIce(data, remoteSocketId) {
     // console.log('candidate 보냄 ');
     // candidate===data
     socket.emit('ice', data.candidate, remoteSocketId);
-    // console.log("아이스", data.candidate)
+    console.log("아이스", data.candidate)
 }
 
 function handleAddStream(data, remoteSocketId) {
