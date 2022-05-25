@@ -56,6 +56,8 @@ const MEETINGMEMBERS = require('../schemas/meetingMember');
  *
  *
  */
+
+// 서호진 
 async function getStudyLists(req, res) {
     const { meetingId } = req.params;
     const { userId } = req.query;
@@ -193,6 +195,7 @@ async function getStudyLists(req, res) {
     }
 }
 
+
 //스터디 등록
 /**
  * 2022. 05. 03. HOJIN
@@ -203,6 +206,7 @@ async function getStudyLists(req, res) {
  *  4. 로그인한 유저가 유효한지 체크
  *
  */
+
 async function postStudy(req, res) {
     //임시 유저
     // const { userId } = req.query;

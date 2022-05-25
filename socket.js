@@ -78,19 +78,18 @@ io.on('connection', (socket) => {
         console.log(`${roomName}에 들어간다`)
         //입력한 룸에 들어갈 때 유저와 소켓아이디 같이 보낸다. 
         //룸에 접속한 유저에게 emit 한다.
+        console.log("참여한 유저의 소켓 ", targetRoomObj.users)
+        console.log("내 소켓 아이디", socket.id)
         socket.to(roomName).emit('welcome', targetRoomObj.users, socket.id);
     });
 
     socket.on('offer', (offer, remoteSocketId) => {
         console.log("offer 받음")
         socket.to(remoteSocketId).emit('offer', offer, socket.id);
-        console.log('offer에 offer랑 소겟 아이디랑 보냄')
     });
 
     socket.on('answer', (answer, remoteSocketId) => {
-        console.log('answer 받음 ')
         socket.to(remoteSocketId).emit('answer', answer, socket.id);
-        console.log(`${socket.id}에 answer 보냄`)
     });
 
     socket.on('disconnecting', async () => {

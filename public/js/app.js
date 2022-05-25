@@ -353,6 +353,7 @@ function makeConnection(remoteSocketId) {
     });
     // myPeerConnection.addEventListener('addstream', handleAddStream(data, remoteSocketId));
 
+    //나의 stream이 상대 peer의 카메라 오디오를 가져옴 
     myPeerConnection.addEventListener('track', (data) => {
 
         console.log('트랙(addstream) ', data)
