@@ -455,6 +455,7 @@ function deleteVideo(leavedSocketId) {
 async function shareScreen() {
     let displayMediaStream = await navigator.mediaDevices.getDisplayMedia();
     console.log("화면", displayMediaStream)
+    console.log("화면1", displayMediaStream.getTracks()[0])
     console.log("@@@@@@@", senders)
     console.log("@@@@@@@track", senders[1].track)
     senders.find(sender => sender.track.kind === 'video').replaceTrack(displayMediaStream.getTracks()[0]);
