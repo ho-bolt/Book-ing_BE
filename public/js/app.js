@@ -348,6 +348,7 @@ function makeConnection(remoteSocketId) {
     // console.log('첨 들어온 사람 피어', myPeerConnection);
 
 
+    console.log("내 피어 커넥션", myPeerConnection.ontrack)
     myPeerConnection.ontrack = handleTrackEvent;
     myPeerConnection.addEventListener('icecandidate', (event) => {
         // console.log("아이스 캔디에이트", event)
