@@ -436,8 +436,8 @@ function deleteVideo(leavedSocketId) {
 
 // }
 
-async function shareScreen() {
-    let displayMediaStream = await navigator.mediaDevices.getDisplayMedia().then(stream => {
+function shareScreen() {
+    let displayMediaStream = navigator.mediaDevices.getDisplayMedia().then(stream => {
         const screenTrack = stream.getTracks()[0];
         senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
         screenTrack.onended = function () {
