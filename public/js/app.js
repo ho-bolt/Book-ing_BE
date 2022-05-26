@@ -448,7 +448,7 @@ function shareScreen() {
         const screenTrack = stream.getTracks()[0];
         senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
         screenTrack.onended = function () {
-            senders.find(sender => sender.track.kind === 'video').replaceTrack(userStream.current.getTracks()[1]);
+            senders.find(sender => sender.track.kind === 'video').replaceTrack(myStream.current.getTracks()[1]);
         };
         console.log("@@@@@@@", senders)
         console.log("@@@@@@@track", senders.track)
