@@ -372,7 +372,7 @@ function makeConnection(remoteSocketId) {
     pcObj[remoteSocketId] = myPeerConnection;
     console.log("들어온 컴퓨터 객체들", pcObj)
 
-    senders.push(myStream);
+    // senders.push(myStream);
     console.log("senders", senders)
     return myPeerConnection
 }
