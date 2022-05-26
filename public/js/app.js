@@ -434,9 +434,12 @@ async function shareScreen() {
         }
     })
 
-
     if (myPeerConnection) {
         const screenTrack = screenStream.getVideoTracks()[0];
+
+        if (myPeerConnection.getVideoTracks()[0].length === 3) {
+            myPeerConnection.getSenders().pop()
+        }
         myPeerConnection.addTrack(screenTrack)
     }
 
