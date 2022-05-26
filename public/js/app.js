@@ -362,7 +362,6 @@ function makeConnection(remoteSocketId) {
         handleAddStream(data, remoteSocketId)
 
 
-
     });
     // console.log(myStream.getTracks())
     //내 장치들을 offer에 넣어준다.
@@ -391,11 +390,38 @@ function handleAddStream(data, remoteSocketId) {
 
     if (data.track.kind === 'video') {
         paintPeerFace(peerStream, remoteSocketId)
-
     }
+}
 
-    // const peersFace = document.getElementById('peersFace');
-    // peersFace.srcObject = data.stream;
+async function shareScreen() {
+    navigator.mediaDevices.getDisplayMedia({
+        video: {
+            cursor: 'always'
+        },
+        audio: {
+            echoCancellation: true,
+            noiseSuppression: true,
+        }
+    }).then((stream) => {
+        let videoTrack = stream.getVideoTracks()[0];
+        videoTrack.onended = function () {
+            stopScreenShare();
+        }
+        let sender = myPeerConnection.getSenders().find(function (s) {
+            return s.track.kind == videoTrack.kind
+        })
+        sender.replaceTrack(videoTrack)
+    }).catch((err) => {
+        console.log("화면을 표시할 수 없음", err)
+    })
+}
+
+function stopScreenShare() {
+    let videoTrack = myStream.getVideoTracks()[0];
+    let sender = myPeerConnection.getSenders().find(function (s) {
+        return s.track.kind == videoTrack.kind;
+    })
+    sender.replaceTrack(videoTrack)
 }
 
 // async function shareScreen() {
@@ -406,47 +432,54 @@ function handleAddStream(data, remoteSocketId) {
 //     const screenTrack = displayMediaStream.getTracks()[0];
 //     console.log("screenTrack", screenTrack)
 //     console.log("@@@@@@@", senders)
-//     console.log("@@@@@@@track", senders[1].track.kind)
+//     console.log("@@@@@@@track", senders[1].track)
 //     console.log("야호", myPeerConnection.getSenders())
 
-//     senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
-//     screenTrack.onended = function () {
-//         senders.find(sender => sender.track.kind === 'video').replaceTrack(myStream.getTracks()[1]);
-//     };
+//     // myPeerConnection.getSenders().map(function (sender) {
+//     //     sender.replaceTrack(myStream.getTracks().find(function (track) {
+//     //         return track.kind === sender.track.kind;
+//     //     }))
+//     // })
+//     // senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
+//     // screenTrack.onended = function () {
+//     //     senders.find(sender => sender.track.kind === 'video').replaceTrack(myStream.getTracks()[1]);
+//     // };
+
 
 //     // paintScreen(displayMediaStream)
-//     document.getElementById('screenShare').srcObject = displayMediaStream;
-
-//}
-
-function shareScreen() {
-    navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
-
-        const screenTrack = stream.getTracks()[0];
-        console.log('화면', screenTrack)
-        console.log('222', senders[1].track.kind)
-        senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
-        screenTrack.onended = function () {
-            senders.find(sender => sender.track.kind === "video").replaceTrack(myStream.getTracks()[1]);
-        }
-    })
-}
+//     // document.getElementById('screenShare').srcObject = displayMediaStream;
 
 
-function paintScreen(screen) {
-    try {
+// }
 
-        const videoScreen = document.querySelector('#screenShare')
-        const video = document.createElement('video')
-        const div = document.createElement('div');
-        video.autoplay = true;
-        video.playsInline = true;
-        video.srcObject = screen;
-        videoScreen.appendChild(div)
-    } catch (err) {
-        console.log(err)
-    }
-}
+// function shareScreen() {
+//     navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
+
+//         const screenTrack = stream.getTracks()[0];
+//         console.log('화면', screenTrack)
+//         console.log('222', senders[1].track.kind)
+//         senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
+//         screenTrack.onended = function () {
+//             senders.find(sender => sender.track.kind === "video").replaceTrack(myStream.getTracks()[1]);
+//         }
+//     })
+// }
+
+
+// function paintScreen(screen) {
+//     try {
+
+//         const videoScreen = document.querySelector('#screenShare')
+//         const video = document.createElement('video')
+//         const div = document.createElement('div');
+//         video.autoplay = true;
+//         video.playsInline = true;
+//         video.srcObject = screen;
+//         videoScreen.appendChild(div)
+//     } catch (err) {
+//         console.log(err)
+//     }
+// }
 
 async function paintPeerFace(peerStream, id) {
     try {
