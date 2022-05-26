@@ -349,7 +349,7 @@ function makeConnection(remoteSocketId) {
 
 
     myPeerConnection.addEventListener('icecandidate', (event) => {
-        console.log("아이스 캔디에이트", event)
+        // console.log("아이스 캔디에이트", event)
         handleIce(event, remoteSocketId)
     });
     // myPeerConnection.addEventListener('addstream', handleAddStream(data, remoteSocketId));
@@ -381,7 +381,7 @@ function handleIce(data, remoteSocketId) {
     // console.log('candidate 보냄 ');
     // candidate===data
     socket.emit('ice', data.candidate, remoteSocketId);
-    console.log("아이스", data.candidate)
+    // console.log("아이스", data.candidate)
 }
 
 function handleAddStream(data, remoteSocketId) {
