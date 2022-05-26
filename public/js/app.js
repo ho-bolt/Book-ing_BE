@@ -372,7 +372,7 @@ function makeConnection(remoteSocketId) {
     pcObj[remoteSocketId] = myPeerConnection;
     console.log("pcObj[remoteSocektId", pcObj)
 
-    senders.push(pcObj);
+    senders.push(myPeerConnection);
     console.log("senders", senders)
     return myPeerConnection
 }
@@ -425,16 +425,16 @@ function deleteVideo(leavedSocketId) {
 
 
 
-// function shareScreen() {
-//     navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
-//         const screenTrack = stream.getTracks()[0];
-//         senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
-//         screenTrack.onended = function () {
-//             pcObj.find(sender => sender.track.kind === 'video').replaceTrack(userStream.current.getTracks()[1]);
-//         }
-//     })
+function shareScreen() {
+    navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
+        const screenTrack = stream.getTracks()[0];
+        senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
+        screenTrack.onended = function () {
+            pcObj.find(sender => sender.track.kind === 'video').replaceTrack(userStream.current.getTracks()[1]);
+        }
+    })
 
-// }
+}
 
 async function shareScreen() {
     let displayMediaStream = await navigator.mediaDevices.getDisplayMedia();
