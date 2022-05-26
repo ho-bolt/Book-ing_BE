@@ -423,16 +423,16 @@ function deleteVideo(leavedSocketId) {
 
 
 
-function shareScreen() {
-    navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
-        const screenTrack = stream.getTracks()[0];
-        senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
-        screenTrack.onended = function () {
-            pcObj.find(sender => sender.track.kind === 'video').replaceTrack(userStream.current.getTracks()[1]);
-        }
-    })
+// function shareScreen() {
+//     navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
+//         const screenTrack = stream.getTracks()[0];
+//         senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
+//         screenTrack.onended = function () {
+//             pcObj.find(sender => sender.track.kind === 'video').replaceTrack(userStream.current.getTracks()[1]);
+//         }
+//     })
 
-}
+// }
 
 function shareScreen() {
     let displayMediaStream = await navigator.mediaDevices.getDisplayMedia();
