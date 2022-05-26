@@ -336,16 +336,6 @@ function makeConnection(remoteSocketId) {
             ]
         }
     );
-    //2명 이상일 때만 실행
-    // for (let i = 0; i < collectiSoketId.length; i++) {
-    //     console.log("콜렉트 소켓아이디", collectiSoketId)
-    //     if (collectiSoketId[i] === collectiSoketId[i + 1]) {
-    //         collectiSoketId.splice(i + 1, 1)
-    //     }
-    // }
-    // console.log('콜렉트 소겟 아이디', collectiSoketId)
-    //answer와 offer 서로 교환 끝나면 이거 필요
-    // console.log('첨 들어온 사람 피어', myPeerConnection);
 
 
     console.log("mypeerconnection", myPeerConnection)
@@ -393,41 +383,8 @@ function handleAddStream(data, remoteSocketId) {
     }
 }
 
-// async function shareScreen() {
-//     navigator.mediaDevices.getDisplayMedia({
-//         video: {
-//             cursor: 'always'
-//         },
-//         audio: {
-//             echoCancellation: true,
-//             noiseSuppression: true,
-//         }
-//     }).then((stream) => {
-//         let videoTrack = stream.getVideoTracks()[0];
-//         videoTrack.onended = function () {
-//             stopScreenShare();
-//         }
-//         console.log('쎈더스2222', senders)
-//         console.log("마이피어커넥션 쎈더스", myPeerConnection.getSenders())
-//         let sender = senders.find(function (s) {
-//             return s.track.kind == videoTrack.kind
-//         })
-//         sender.replaceTrack(videoTrack)
-//     }).catch((err) => {
-//         console.log("화면을 표시할 수 없음", err)
-//     })
-// }
-
-// function stopScreenShare() {
-//     let videoTrack = myStream.getVideoTracks()[0];
-//     let sender = myPeerConnection.getSenders().find(function (s) {
-//         return s.track.kind == videoTrack.kind;
-//     })
-//     sender.replaceTrack(videoTrack)
-// }
-
 async function shareScreen() {
-    let displayMediaStream = await navigator.mediaDevices.getDisplayMedia({
+    navigator.mediaDevices.getDisplayMedia({
         video: {
             cursor: 'always'
         },
@@ -435,22 +392,56 @@ async function shareScreen() {
             echoCancellation: true,
             noiseSuppression: true,
         }
+    }).then((stream) => {
+        let videoTrack = stream.getVideoTracks()[0];
+        videoTrack.onended = function () {
+            stopScreenShare();
+        }
+        console.log('추가 전 쎈더스', myPeerConnection.getSenders())
 
-    });
-
-    console.log("화면", displayMediaStream)
-
-    console.log("화면1", displayMediaStream.getTracks()[0])
-    const screenTrack = displayMediaStream.getTracks()[0];
-    console.log("screenTrack", screenTrack)
-    console.log("senders", senders)
-    console.log("@@@@@@@track", senders[1].track)
-    console.log("senders22", myPeerConnection.getSenders())
-
-    document.getElementById('screenShare').srcObject = displayMediaStream;
-
-
+        let sender = senders.find(function (s) {
+            return s.track.kind == videoTrack.kind
+        })
+        sender.addTrack(videoTrack)
+        console.log("추가 후 센더스", myPeerConnection.getSenders())
+    }).catch((err) => {
+        console.log("화면을 표시할 수 없음", err)
+    })
 }
+
+function stopScreenShare() {
+    let videoTrack = myStream.getVideoTracks()[0];
+    let sender = myPeerConnection.getSenders().find(function (s) {
+        return s.track.kind == videoTrack.kind;
+    })
+    sender.replaceTrack(videoTrack)
+}
+
+// async function shareScreen() {
+//     let displayMediaStream = await navigator.mediaDevices.getDisplayMedia({
+//         video: {
+//             cursor: 'always'
+//         },
+//         audio: {
+//             echoCancellation: true,
+//             noiseSuppression: true,
+//         }
+
+//     });
+
+//     console.log("화면", displayMediaStream)
+
+//     console.log("화면1", displayMediaStream.getTracks()[0])
+//     const screenTrack = displayMediaStream.getTracks()[0];
+//     console.log("screenTrack", screenTrack)
+//     console.log("senders", senders)
+//     console.log("@@@@@@@track", senders[1].track)
+//     console.log("senders22", myPeerConnection.getSenders())
+
+//     document.getElementById('screenShare').srcObject = displayMediaStream;
+
+
+// }
 
 // function shareScreen() {
 //     navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {

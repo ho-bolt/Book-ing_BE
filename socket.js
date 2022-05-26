@@ -111,6 +111,7 @@ io.on('connection', (socket) => {
     socket.on('ice', (ice, remoteSocketId) => {
         socket.to(remoteSocketId).emit('ice', ice, socket.id);
     });
+
 });
 
 module.exports = { server };
