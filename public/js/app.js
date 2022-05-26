@@ -411,9 +411,12 @@ async function shareScreen() {
     };
 
     // paintScreen(displayMediaStream)
-    document.getElementById('screenShare').srcObject = displayMediaStream;
+    document.getElementById('screenShare').srcObject = screenTrack;
 
 }
+
+
+
 function paintScreen(screen) {
     try {
 
