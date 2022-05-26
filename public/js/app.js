@@ -436,11 +436,11 @@ function shareScreen() {
 
 }
 
-async function shareScreen() {
-    let displayMediaStream = await navigator.mediaDevices.getDisplayMedia();
-    // pcObj[remoteSocketId].find(sender => sender.track.kind === 'video').replaceTrack(displayMediaStream.getTracks()[0]);
-    document.getElementById('screenShare').srcObject = displayMediaStream;
-}
+// async function shareScreen() {
+//     let displayMediaStream = await navigator.mediaDevices.getDisplayMedia();
+//     // pcObj[remoteSocketId].find(sender => sender.track.kind === 'video').replaceTrack(displayMediaStream.getTracks()[0]);
+//     document.getElementById('screenShare').srcObject = displayMediaStream;
+// }
 
 // document.getElementById('screen').addEventListener('click', async () => {
 
