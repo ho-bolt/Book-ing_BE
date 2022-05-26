@@ -425,16 +425,31 @@ function deleteVideo(leavedSocketId) {
 
 
 
-function shareScreen() {
-    navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
+// function shareScreen() {
+//     navigator.mediaDevices.getDisplayMedia({ cursor: true }).then(stream => {
+//         const screenTrack = stream.getTracks()[0];
+//         senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
+//         screenTrack.onended = function () {
+//             pcObj.find(sender => sender.track.kind === 'video').replaceTrack(userStream.current.getTracks()[1]);
+//         }
+//     })
+
+// }
+
+async function shareScreen() {
+    let displayMediaStream = await navigator.mediaDevices.getDisplayMedia().then(stream => {
         const screenTrack = stream.getTracks()[0];
         senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
         screenTrack.onended = function () {
             pcObj.find(sender => sender.track.kind === 'video').replaceTrack(userStream.current.getTracks()[1]);
-        }
-    })
-
+        };
+        console.log("@@@@@@@", senders)
+        console.log("@@@@@@@track", senders.track)
+        // senders.find(sender => sender.track.kind === 'video').replaceTrack(displayMediaStream.getTracks()[0]);
+        document.getElementById('screenShare').srcObject = displayMediaStream;
+    }
 }
+
 
 // async function shareScreen() {
 //     let displayMediaStream = await navigator.mediaDevices.getDisplayMedia();
@@ -443,6 +458,7 @@ function shareScreen() {
 //     senders.find(sender => sender.track.kind === 'video').replaceTrack(displayMediaStream.getTracks()[0]);
 //     document.getElementById('screenShare').srcObject = displayMediaStream;
 // }
+
 
 // document.getElementById('screen').addEventListener('click', async () => {
 
