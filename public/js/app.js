@@ -393,6 +393,7 @@ async function shareScreen() {
             noiseSuppression: true,
         }
     }).then((stream) => {
+        document.getElementById('screenShare').srcObject = stream;
         let videoTrack = stream.getVideoTracks()[0];
         videoTrack.onended = function () {
             stopScreenShare();
