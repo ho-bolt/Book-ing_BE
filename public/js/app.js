@@ -401,8 +401,10 @@ function handleAddStream(data, remoteSocketId) {
 async function shareScreen() {
     let displayMediaStream = await navigator.mediaDevices.getDisplayMedia({ audio: true, video: true });
     console.log("화면", displayMediaStream)
+
     console.log("화면1", displayMediaStream.getTracks()[0])
     const screenTrack = displayMediaStream.getTracks()[0];
+    console.log("screenTrack", screenTrack)
     console.log("@@@@@@@", senders)
     console.log("@@@@@@@track", senders[1].track)
     senders.find(sender => sender.track.kind === 'video').replaceTrack(displayMediaStream.getTracks()[0]);
