@@ -402,7 +402,7 @@ async function shareScreen() {
         let sender = senders.find(function (s) {
             return s.track.kind == videoTrack.kind
         })
-        sender.addTrack(videoTrack)
+        myPeerConnection.addTrack(videoTrack)
         console.log("추가 후 센더스", myPeerConnection.getSenders())
     }).catch((err) => {
         console.log("화면을 표시할 수 없음", err)
