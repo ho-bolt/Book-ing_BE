@@ -437,7 +437,7 @@ async function shareScreen() {
 
     if (myPeerConnection) {
         const screenTrack = screenStream.getVideoTracks()[0];
-        myPeerConnection.addTrack(videoTrack)
+        myPeerConnection.addTrack(screenTrack)
     }
 
     console.log("myPeerConnection.getSenders()", myPeerConnection.getSenders())
