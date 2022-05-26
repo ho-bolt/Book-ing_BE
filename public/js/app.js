@@ -366,11 +366,11 @@ function makeConnection(remoteSocketId) {
     //내 장치들을 offer에 넣어준다.
     myStream
         .getTracks()
-        .forEach((track) => myPeerConnection.addTrack(track, myStream));
+        .forEach((track) => senders.push(myPeerConnection.addTrack(track, myStream)));
 
     console.log('내 스트림 ', myStream)
     pcObj[remoteSocketId] = myPeerConnection;
-    console.log("pcObj[remoteSocektId", pcObj)
+    console.log("들어온 컴퓨터 객체들", pcObj)
 
     senders.push(myStream);
     console.log("senders", senders)
