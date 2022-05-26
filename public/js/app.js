@@ -349,7 +349,6 @@ function makeConnection(remoteSocketId) {
 
 
     console.log("mypeerconnection", myPeerConnection)
-    myPeerConnection.ontrack = handleTrackEvent;
     myPeerConnection.addEventListener('icecandidate', (event) => {
         // console.log("아이스 캔디에이트", event)
         handleIce(event, remoteSocketId)
