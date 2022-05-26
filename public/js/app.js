@@ -348,6 +348,7 @@ function makeConnection(remoteSocketId) {
     // console.log('첨 들어온 사람 피어', myPeerConnection);
 
 
+    myPeerConnection.ontrack = handleTrackEvent();
     myPeerConnection.addEventListener('icecandidate', (event) => {
         // console.log("아이스 캔디에이트", event)
         handleIce(event, remoteSocketId)
@@ -409,6 +410,10 @@ async function paintPeerFace(peerStream, id) {
     } catch (err) {
         console.log(err)
     }
+}
+function handleTrackEvent(e) {
+    console.log("eeeee", e)
+    document.getElementById('partnerVideo').srcObject = e.streams[0]
 }
 
 //나가면 해당 유저의 비디오 삭제
