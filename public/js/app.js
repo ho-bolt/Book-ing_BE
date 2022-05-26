@@ -448,6 +448,7 @@ async function shareScreen() {
         // senders.find(sender => sender.track.kind === 'video').replaceTrack(displayMediaStream.getTracks()[0]);
         document.getElementById('screenShare').srcObject = displayMediaStream;
     }
+    )
 }
 
 
