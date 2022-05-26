@@ -30,7 +30,12 @@ async function getMedia(deviceId) {
     try {
         myStream = await navigator.mediaDevices.getUserMedia(
             deviceId ? camerConstraints : initialConstraints
-        );
+        ).then(function (audioStream) {
+            navigator.mediaDevices.getDisplayMedia({
+                audio: true,
+                video: true
+            })
+        })
         myFace.volume = 0
         myFace.srcObject = myStream;
         if (!deviceId) {
