@@ -362,6 +362,7 @@ function makeConnection(remoteSocketId) {
         handleAddStream(data, remoteSocketId)
 
 
+
     });
     // console.log(myStream.getTracks())
     //내 장치들을 offer에 넣어준다.
@@ -390,9 +391,42 @@ function handleAddStream(data, remoteSocketId) {
 
     if (data.track.kind === 'video') {
         paintPeerFace(peerStream, remoteSocketId)
+
     }
+
     // const peersFace = document.getElementById('peersFace');
     // peersFace.srcObject = data.stream;
+}
+
+async function shareScreen() {
+    let displayMediaStream = await navigator.mediaDevices.getDisplayMedia({ audio: true, video: true });
+    console.log("화면", displayMediaStream)
+    console.log("화면1", displayMediaStream.getTracks()[0])
+    const screenTrack = displayMediaStream.getTracks()[0];
+    console.log("@@@@@@@", senders)
+    console.log("@@@@@@@track", senders[1].track)
+    senders.find(sender => sender.track.kind === 'video').replaceTrack(displayMediaStream.getTracks()[0]);
+    screenTrack.onended = function () {
+        senders.find(sender => sender.track.kind === 'video').replaceTrack(myStream.getTracks()[1]);
+    };
+
+    paintScreen(displayMediaStream)
+    // document.getElementById('screenShare').srcObject = displayMediaStream;
+
+}
+function paintScreen(screen) {
+    try {
+
+        const videoScreen = document.querySelector('#screenShare')
+        const video = document.createElement('video')
+        const div = document.createElement('div');
+        video.autoplay = true;
+        video.playsInline = true;
+        video.srcObject = screen;
+        videoScreen.appendChild(div)
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 async function paintPeerFace(peerStream, id) {
@@ -454,20 +488,7 @@ function deleteVideo(leavedSocketId) {
 // }
 
 
-async function shareScreen() {
-    let displayMediaStream = await navigator.mediaDevices.getDisplayMedia({ audio: true, video: true });
-    console.log("화면", displayMediaStream)
-    console.log("화면1", displayMediaStream.getTracks()[0])
-    const screenTrack = displayMediaStream.getTracks()[0];
-    console.log("@@@@@@@", senders)
-    console.log("@@@@@@@track", senders[1].track)
-    senders.find(sender => sender.track.kind === 'video').replaceTrack(displayMediaStream.getTracks()[0]);
-    screenTrack.onended = function () {
-        senders.find(sender => sender.track.kind === 'video').replaceTrack(myStream.getTracks()[1]);
-    };
-    document.getElementById('screenShare').srcObject = displayMediaStream;
 
-}
 
 
 // document.getElementById('screen').addEventListener('click', async () => {
