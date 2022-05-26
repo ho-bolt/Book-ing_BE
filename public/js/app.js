@@ -410,8 +410,8 @@ async function shareScreen() {
         senders.find(sender => sender.track.kind === 'video').replaceTrack(myStream.getTracks()[1]);
     };
 
-    paintScreen(displayMediaStream)
-    // document.getElementById('screenShare').srcObject = displayMediaStream;
+    // paintScreen(displayMediaStream)
+    document.getElementById('screenShare').srcObject = displayMediaStream;
 
 }
 function paintScreen(screen) {
