@@ -306,6 +306,12 @@ socket.on('full', () => {
     history.replace('/');
 })
 
+socket.on('acceptShareScreen', async (screenStream, socketId) => {
+    const newScreen = makeConnection(socketId)
+
+    console.log("new SCreen", newScreen)
+})
+
 socket.on('leave_room', (leaveSocketId) => {
     deleteVideo(leaveSocketId);
 
@@ -433,25 +439,9 @@ async function shareScreen() {
             noiseSuppression: true,
         }
     })
-
-    if (myPeerConnection) {
-        const screenTrack = screenStream.getVideoTracks()[0];
-
-        if (myPeerConnection.getVideoTracks()[0].length === 3) {
-            myPeerConnection.getSenders().pop()
-        }
-        myPeerConnection.addTrack(screenTrack)
-    }
-
-    console.log("myPeerConnection.getSenders()", myPeerConnection.getSenders())
-
-    // const screenSender = myPeerConnection.getSenders().find((sender) => sender.track.kind === 'video')
-
-    // let sender = myPeerConnection.getSenders().find(function (s) {
-    //     return s.track.kind == screenTrack.kind
-    // })
-    // sender.replaceTrack(screenTrack);
-
+    console.log("2222", screenStream)
+    console.log('sharescreen 에밋')
+    socket.emit('shareScreen', roomName);
 
 }
 
