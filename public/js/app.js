@@ -348,7 +348,6 @@ function makeConnection(remoteSocketId) {
     // console.log('첨 들어온 사람 피어', myPeerConnection);
 
 
-    console.log("내 피어 커넥션", myPeerConnection.ontrack)
     console.log("mypeerconnection", myPeerConnection)
     myPeerConnection.ontrack = handleTrackEvent;
     myPeerConnection.addEventListener('icecandidate', (event) => {
@@ -413,10 +412,7 @@ async function paintPeerFace(peerStream, id) {
         console.log(err)
     }
 }
-function handleTrackEvent(e) {
-    console.log("eeeee", e)
-    document.getElementById('partnerVideo').srcObject = e.streams[0]
-}
+
 
 //나가면 해당 유저의 비디오 삭제
 function deleteVideo(leavedSocketId) {
@@ -471,6 +467,7 @@ async function shareScreen() {
         senders.find(sender => sender.track.kind === 'video').replaceTrack(myStream.getTracks()[1]);
     };
     document.getElementById('screenShare').srcObject = displayMediaStream;
+
 }
 
 
