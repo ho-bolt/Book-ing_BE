@@ -363,7 +363,7 @@ function makeConnection(remoteSocketId) {
     //내 장치들을 offer에 넣어준다.
     myStream
         .getTracks()
-        .forEach((track) => myPeerConnection.addTrack(track, myStream));
+        .forEach((track) => senders.push(myPeerConnection.addTrack(track, myStream)));
 
     console.log('내 스트림 ', myStream)
     pcObj[remoteSocketId] = myPeerConnection;
