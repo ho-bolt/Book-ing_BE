@@ -12,6 +12,7 @@ const microphoneSelect = document.getElementById('microphone');
 const screenShare = document.getElementById('screenShare')
 let senders = [];
 let myStream;
+let screenStream;
 let muted = false;
 let cameraOff = false;
 let roomName;
@@ -408,7 +409,12 @@ function makeConnection(remoteSocketId) {
         .getTracks()
         .forEach((track) => myPeerConnection.addTrack(track, myStream));
 
+    screenStream
+        .getTracks()
+        .forEach((track) => myPeerConnection.addTrack(track, screenStream));
+
     console.log('내 스트림 ', myStream)
+    console.log('스크린 스트림', screenStream)
     pcObj[remoteSocketId] = myPeerConnection;
     console.log("들어온 컴퓨터 객체들", pcObj)
 
