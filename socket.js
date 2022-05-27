@@ -87,37 +87,6 @@ io.on('connection', (socket) => {
     });
 
 
-    socket.on('shareScreen', (roomName) => {
-        console.log("화면공유 넘어오냐?")
-        myRoom = roomName;
-        let isRoomExits = false;
-        let targetScreen = {};
-
-
-        //하지만 만약 입력한 룸이름이 없다면 새로운 방 생성 
-        if (!isRoomExits) {
-            targetScreen = {
-                roomName,
-                users: [],
-            }
-            screenObjArr.push(targetScreen)
-        }
-
-        //입력한 방에 들어온 유저의 소켓 아이디를 푸쉬함
-        targetScreen.users.push({
-            socketId: socket.id
-        })
-        //룸에 접속한다
-        socket.join(roomName);
-        //입력한 룸에 들어갈 때 유저와 소켓아이디 같이 보낸다. 
-        //룸에 접속한 유저에게 emit 한다.
-        console.log("참여한 유저의 소켓 ", targetScreen.users)
-        console.log("내 소켓 아이디", socket.id)
-        socket.join(roomName)
-        socket.to(roomName).emit('welcome', targetScreen.users, socket.id)
-    })
-
-
 
     socket.on('offer', (offer, remoteSocketId) => {
         console.log("offer 받음")

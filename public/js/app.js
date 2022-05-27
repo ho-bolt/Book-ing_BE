@@ -246,9 +246,9 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
     // console.log("새로 들어온 사람 id", socketIdformserver)
 
     //누군가 들어왔을 때 실행
-    if (len === 1) {
-        return;
-    }
+    // if (len === 1) {
+    //     return;
+    // }
     for (let i = 0; i < len - 1; i++) {
         console.log('누군가 들어왔어요!');
         //가장 최근에 들어온 브라우저 제외
@@ -256,6 +256,41 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
         try {
             //RTCPerrconnection생성
             console.log("번호", i)
+            if (len > 2) {
+                if (i === 0) {
+                    continue;
+                }
+            }
+            if (len > 3) {
+                if (i === 1) {
+                    continue;
+                }
+            }
+            if (len > 4) {
+                if (i === 2) {
+                    continue;
+                }
+            }
+            if (len > 5) {
+                if (i === 3) {
+                    continue;
+                }
+            }
+            if (len > 6) {
+                if (i === 4) {
+                    continue;
+                }
+            }
+            if (len > 7) {
+                if (i === 5) {
+                    continue;
+                }
+            }
+            if (len > 8) {
+                if (i === 6) {
+                    continue;
+                }
+            }
 
             //누군가 들어왔을 때 나 빼고 다른 사람을 피어연결해준다. 
             const newPc = makeConnection(
@@ -404,7 +439,6 @@ function handleAddStream(data, remoteSocketId) {
     if (data.track.kind === 'video') {
         paintPeerFace(peerStream, remoteSocketId)
         if (screenStream) {
-            console.log("스크린 스트림 있니?", screenStream)
             screenShare.srcObject = screenStream;
         }
     }
@@ -450,18 +484,10 @@ function handleAddStream(data, remoteSocketId) {
 
 
 async function shareScreen() {
-    // let screenStream = await navigator.mediaDevices.getDisplayMedia({
-    //     video: {
-    //         cursor: 'always'
-    //     },
-    //     audio: {
-    //         echoCancellation: true,
-    //         noiseSuppression: true,
-    //     }
-    // })
+
     await getShareScreenMedia()
     console.log('sharescreen 에밋')
-    socket2.emit('join_room', roomName);
+    socket2.emit('join_room', studyId);
 }
 
 
