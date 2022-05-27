@@ -441,7 +441,7 @@ async function shareScreen() {
     })
 
     console.log('sharescreen 에밋')
-    socket.emit('join_room', roomName + 1);
+    socket.emit('join_room', roomName);
 
 }
 
