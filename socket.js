@@ -65,7 +65,6 @@ io.on('connection', (socket) => {
             roomObjArr.push(targetRoomObj)
         }
         console.log('현재 입력해서 들어간 룸', targetRoomObj)
-        console.log("들어오려는 사람 소켓 아이디", socket.id)
         console.log('만들어진 방 배열', roomObjArr)
 
         //입력한 방에 들어온 유저의 소켓 아이디를 푸쉬함
@@ -77,6 +76,7 @@ io.on('connection', (socket) => {
         //룸에 접속한다
         socket.join(roomName);
         console.log("방이름?", roomName)
+        console.log("들어오려는 사람 소켓 아이디", socket.id)
         console.log(`${roomName}에 들어간다`)
         //입력한 룸에 들어갈 때 유저와 소켓아이디 같이 보낸다. 
         //룸에 접속한 유저에게 emit 한다.
