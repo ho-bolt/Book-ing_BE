@@ -559,7 +559,6 @@ async function paintPeerFace(peerStream, id) {
         const video = document.createElement('video')
         const div = document.createElement('div')
         div.id = id;
-        video.style = border
         video.autoplay = true;
         video.playsInline = true;
         video.srcObject = peerStream;
