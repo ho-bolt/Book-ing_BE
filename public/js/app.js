@@ -249,7 +249,7 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
     // if (len === 1) {
     //     return;
     // }
-    for (let i = 1; i < len; i++) {
+    for (let i = 1; i < len - 1; i++) {
         console.log('누군가 들어왔어요!');
         //가장 최근에 들어온 브라우저 제외
 
