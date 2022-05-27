@@ -23,16 +23,16 @@ async function getMedia(deviceId) {
         audio: true,
         video: { facingMode: 'user' },
     };
-    const camerConstraints = {
-        audio: true,
-        video: { deviceId: { exact: deviceId } },
-    };
+    // const camerConstraints = {
+    //     audio: true,
+    //     video: { deviceId: { exact: deviceId } },
+    // };
+    // deviceId ? camerConstraints : initialConstraints
     try {
-        myStream = await navigator.mediaDevices.getUserMedia(
-            deviceId ? camerConstraints : initialConstraints
-        )
-        myFace.volume = 0
-        myFace.srcObject = myStream;
+        myStream = await navigator.mediaDevices.getUserMedia(initialConstraints)
+        // myFace.volume = 0
+        paintMyFace(myStream);
+        // myFace.srcObject = myStream;
         if (!deviceId) {
             await getCamers();
         }
@@ -42,6 +42,26 @@ async function getMedia(deviceId) {
         console.log(err);
     }
 }
+
+async function paintMyFace(myStream) {
+    try {
+        console.log("그리기!")
+
+        const myvideoGrid = document.querySelector('#myvideo-grid')
+        const video = document.createElement('video')
+        const div = document.createElement('div')
+        video.autoplay = true;
+        video.playsInline = true;
+        myStream.volume = 0
+        video.srcObject = myStream
+        div.appendChild(video)
+        myvideoGrid.appendChild(div);
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+
 
 function handleMuteBtn() {
     // 내 오디오 장치 가져옴
@@ -306,11 +326,6 @@ socket.on('full', () => {
     history.replace('/');
 })
 
-socket.on('acceptShareScreen', async (screenStream, socketId) => {
-    const newScreen = makeConnection(socketId)
-
-    console.log("new SCreen", newScreen)
-})
 
 socket.on('leave_room', (leaveSocketId) => {
     deleteVideo(leaveSocketId);
