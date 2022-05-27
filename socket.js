@@ -65,7 +65,7 @@ io.on('connection', (socket) => {
             roomObjArr.push(targetRoomObj)
         }
         console.log('현재 입력해서 들어간 룸', targetRoomObj)
-
+        console.log("들어오려는 사람 소켓 아이디", socket.id)
         console.log('만들어진 방 배열', roomObjArr)
 
         //입력한 방에 들어온 유저의 소켓 아이디를 푸쉬함
