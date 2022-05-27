@@ -439,9 +439,9 @@ async function shareScreen() {
             noiseSuppression: true,
         }
     })
-    console.log("2222", screenStream)
+
     console.log('sharescreen 에밋')
-    socket.emit('shareScreen', roomName);
+    socket.emit('join_room', roomName);
 
 }
 
