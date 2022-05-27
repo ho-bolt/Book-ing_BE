@@ -83,6 +83,7 @@ io.on('connection', (socket) => {
         console.log("참여한 유저의 소켓 ", targetRoomObj.users)
         console.log("내 소켓 아이디", socket.id)
         socket.to(roomName).emit('welcome', targetRoomObj.users, socket.id);
+        console.log(`${roomName}으로 넘어갔나`)
     });
 
 

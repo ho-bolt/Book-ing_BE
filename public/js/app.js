@@ -376,7 +376,7 @@ function makeConnection(remoteSocketId) {
 
     });
 
-    myPeerConnection.addEventListener('addTrack', (data) => {
+    myPeerConnection.addEventListener('addStream', (data) => {
         console.log("@@@", data)
     })
     // console.log(myStream.getTracks())
@@ -458,18 +458,18 @@ function handleAddStream(data, remoteSocketId) {
 
 
 async function shareScreen() {
-    let screenStream = await navigator.mediaDevices.getDisplayMedia({
-        video: {
-            cursor: 'always'
-        },
-        audio: {
-            echoCancellation: true,
-            noiseSuppression: true,
-        }
-    })
+    // let screenStream = await navigator.mediaDevices.getDisplayMedia({
+    //     video: {
+    //         cursor: 'always'
+    //     },
+    //     audio: {
+    //         echoCancellation: true,
+    //         noiseSuppression: true,
+    //     }
+    // })
     console.log('sharescreen 에밋')
     socket2.emit('join_room', roomName);
-    const screenTrack = screenStream.getTracks()[0];
+
 
 }
 
