@@ -458,11 +458,15 @@ async function shareScreen() {
     console.log('sharescreen 에밋')
     socket2.emit('join_room', roomName);
     const screenTrack = screenStream.getTracks()[0];
-    senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
-    screenTrack.onended = function () {
-        senders.find(sender => sender.track.kind === "video").replaceTrack(myStream.getTracks()[1]);
-    }
-    // document.getElementById('screenShare').srcObject = screenStream;
+    const screenGrid = document.querySelector('#screen-grid')
+    const video = document.createElement('video')
+    const div = document.createElement('div')
+    video.autoPlay = true;
+    video.playsInline = true;
+    video.srcObject = screenStream;
+    div.appendChild(video)
+    screenGrid.appendChild(div)
+
 }
 
 
