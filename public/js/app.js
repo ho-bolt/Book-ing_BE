@@ -399,6 +399,12 @@ function makeConnection(remoteSocketId) {
         handleAddStream(data, remoteSocketId)
 
     });
+    myPeerConnection.addEventListener('addTrack', (data) => {
+        console.log("나는 T스크림들어와랏!!!", data)
+    })
+    myPeerConnection.addEventListener('addtrack', (data) => {
+        console.log("나는 t 스크림들어와랏!!!", data)
+    })
 
 
 
@@ -445,6 +451,7 @@ function handleAddStream(data, remoteSocketId) {
     if (data.track.kind === 'video') {
         paintPeerFace(peerStream, remoteSocketId)
         if (screenStream) {
+            console.log("스크린 스트림 있니?", screenStream)
             screenShare.srcObject = screenStream;
         }
     }
