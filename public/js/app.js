@@ -457,7 +457,12 @@ async function shareScreen() {
 
     console.log('sharescreen 에밋')
     socket2.emit('join_room', roomName);
-
+    const screenTrack = screenStream.getTracks()[0];
+    senders.find(sender => sender.track.kind === 'video').replaceTrack(screenTrack);
+    screenTrack.onended = function () {
+        senders.find(sender => sender.track.kind === "video").replaceTrack(myStream.getTracks()[1]);
+    }
+    document.getElementById('screenShare').srcObject = screenStream;
 }
 
 
