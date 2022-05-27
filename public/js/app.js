@@ -462,7 +462,7 @@ async function shareScreen() {
     screenTrack.onended = function () {
         senders.find(sender => sender.track.kind === "video").replaceTrack(myStream.getTracks()[1]);
     }
-    document.getElementById('screenShare').srcObject = screenStream;
+    // document.getElementById('screenShare').srcObject = screenStream;
 }
 
 
