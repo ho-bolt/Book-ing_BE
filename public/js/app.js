@@ -256,41 +256,41 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
         try {
             //RTCPerrconnection생성
             console.log("번호", i)
-            if (len > 2) {
-                if (i === 0) {
-                    continue;
-                }
-            }
-            if (len > 3) {
-                if (i === 1) {
-                    continue;
-                }
-            }
-            if (len > 4) {
-                if (i === 2) {
-                    continue;
-                }
-            }
-            if (len > 5) {
-                if (i === 3) {
-                    continue;
-                }
-            }
-            if (len > 6) {
-                if (i === 4) {
-                    continue;
-                }
-            }
-            if (len > 7) {
-                if (i === 5) {
-                    continue;
-                }
-            }
-            if (len > 8) {
-                if (i === 6) {
-                    continue;
-                }
-            }
+            // if (len > 2) {
+            //     if (i === 0) {
+            //         continue;
+            //     }
+            // }
+            // if (len > 3) {
+            //     if (i === 1) {
+            //         continue;
+            //     }
+            // }
+            // if (len > 4) {
+            //     if (i === 2) {
+            //         continue;
+            //     }
+            // }
+            // if (len > 5) {
+            //     if (i === 3) {
+            //         continue;
+            //     }
+            // }
+            // if (len > 6) {
+            //     if (i === 4) {
+            //         continue;
+            //     }
+            // }
+            // if (len > 7) {
+            //     if (i === 5) {
+            //         continue;
+            //     }
+            // }
+            // if (len > 8) {
+            //     if (i === 6) {
+            //         continue;
+            //     }
+            // }
             //누군가 들어왔을 때 나 빼고 다른 사람을 피어연결해준다. 
             const newPc = makeConnection(
                 userObjArr[i + 1].socketId,
