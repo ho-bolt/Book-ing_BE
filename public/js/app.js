@@ -412,7 +412,7 @@ function makeConnection(remoteSocketId) {
             .getTracks()
             .forEach((track) => senders.push(myPeerConnection.addTrack(track, screenStream)));
     }
-    console.log("@@@", screenStream.getTracks())
+
 
     console.log('내 스트림 ', myStream)
     console.log('스크린 스트림', screenStream)
