@@ -295,13 +295,13 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
             const newPc = makeConnection(
                 userObjArr[i].socketId,
             );
-            console.log('담에 들어온 사람 ', userObjArr[i + 1].socketId,)
+            console.log('담에 들어온 사람 ', userObjArr[i].socketId,)
             //첨 있던 애가 offer 만들고
             const offer = await myPeerConnection.createOffer();
             //새로 들어온 애가 그 offer set
             await newPc.setLocalDescription(offer)
             console.log('offer 보냄')
-            socket.emit('offer', offer, userObjArr[i + 1].socketId);
+            socket.emit('offer', offer, userObjArr[i].socketId);
         } catch (err) {
             console.log(err)
         }
