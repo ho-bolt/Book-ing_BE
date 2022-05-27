@@ -1,6 +1,6 @@
 
 const socket = io();
-
+const socket2 = io();
 
 //html 가져오는 부분
 const myFace = document.getElementById('myFace');
@@ -441,7 +441,7 @@ async function shareScreen() {
     })
 
     console.log('sharescreen 에밋')
-    socket.emit('join_room', roomName);
+    socket2.emit('join_room', roomName);
 
 }
 
