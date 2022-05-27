@@ -9,6 +9,7 @@ let cameraBtn = document.getElementById('camera');
 const screenBtn = document.getElementById('screen')
 const camersSelect = document.getElementById('cameras');
 const microphoneSelect = document.getElementById('microphone');
+const screenShare = document.getElementById('screenShare')
 let senders = [];
 let myStream;
 let muted = false;
@@ -42,6 +43,29 @@ async function getMedia(deviceId) {
         console.log(err);
     }
 }
+
+async function getShareScreenMedia(deviceId) {
+    const initialConstraints = {
+        audio: true,
+        video: true
+    };
+
+    try {
+        screenStream = await navigator.mediaDevices.getDisplayMedia(initialConstraints)
+        // paintMyShareVideo(screenStream);
+        screenShare.srcObject = screenStream;
+        if (!deviceId) {
+            await getCamers();
+        }
+        makeConnection(socket2.id);
+        console.log("getShareScreenMedia안이다", socket2.id)
+        await getAudios()
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
 
 async function paintMyFace(myStream) {
     try {
@@ -365,7 +389,6 @@ function makeConnection(remoteSocketId) {
         handleIce(event, remoteSocketId)
     });
 
-    myPeerConnection.ontrack = handleTrackEvent;
 
     // myPeerConnection.addEventListener('addstream', handleAddStream(data, remoteSocketId));
 
@@ -376,7 +399,7 @@ function makeConnection(remoteSocketId) {
 
     });
 
-    myPeerConnection.addEventListener('addStream', (data) => {
+    myPeerConnection.addEventListener('addtrack', (data) => {
         console.log("@@@", data)
     })
     // console.log(myStream.getTracks())
@@ -394,10 +417,7 @@ function makeConnection(remoteSocketId) {
     return myPeerConnection
 }
 
-function handleTrackEvent(e) {
-    console.log("@eeeeeeee", e)
-    document.getElementById('screenShare').srcObject = e.streams[0];
-}
+
 
 function handleIce(data, remoteSocketId) {
     // console.log('candidate 보냄 ');
@@ -467,11 +487,11 @@ async function shareScreen() {
     //         noiseSuppression: true,
     //     }
     // })
+    await getShareScreenMedia()
     console.log('sharescreen 에밋')
     socket2.emit('join_room', roomName);
-
-
 }
+
 
 
 
