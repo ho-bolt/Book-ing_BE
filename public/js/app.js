@@ -487,7 +487,7 @@ async function shareScreen() {
 
     await getShareScreenMedia()
     console.log('sharescreen 에밋')
-    socket2.emit('join_room', studyId);
+    socket2.emit('join_room', roomName);
 }
 
 
