@@ -55,12 +55,11 @@ async function getShareScreenMedia(deviceId) {
         screenStream = await navigator.mediaDevices.getDisplayMedia(initialConstraints)
         // paintMyShareVideo(screenStream);
         screenShare.srcObject = screenStream;
-        if (!deviceId) {
-            await getCamers();
-        }
+
+        console.log("나 소켓 있어?", socket2.id)
         makeConnection(socket2.id);
-        console.log("getShareScreenMedia안이다", socket2.id)
-        await getAudios()
+
+
     } catch (err) {
         console.log(err);
     }
@@ -402,8 +401,6 @@ function makeConnection(remoteSocketId) {
 
 
 
-
-
     // console.log(myStream.getTracks())
     //내 장치들을 offer에 넣어준다.
     myStream
@@ -413,22 +410,16 @@ function makeConnection(remoteSocketId) {
     if (screenStream) {
         screenStream
             .getTracks()
-            .forEach((track) => myPeerConnection.addTrack(track, screenStream));
-
+            .forEach((track) => senders.push(myPeerConnection.addTrack(track, screenStream)));
     }
-    myPeerConnection.addEventListener('addTrack', (data) => {
-        console.log("나는 T스크림들어와랏!!!", data)
-    })
-    myPeerConnection.addEventListener('addtrack', (data) => {
-        console.log("나는 t 스크림들어와랏!!!", data)
-    })
+    console.log("@@@", screenStream.getTracks())
+
     console.log('내 스트림 ', myStream)
     console.log('스크린 스트림', screenStream)
     pcObj[remoteSocketId] = myPeerConnection;
     console.log("들어온 컴퓨터 객체들", pcObj)
 
     // senders.push(myStream);
-    console.log("senders", senders)
     return myPeerConnection
 }
 
@@ -443,10 +434,6 @@ function handleIce(data, remoteSocketId) {
 
 function handleAddStream(data, remoteSocketId) {
     const peerStream = data.streams[0]
-
-    console.log('화면공유 했을 때')
-    console.log("!!!!!!!!data", data)
-    console.log("@@@@@@@@@", data.streams)
 
     if (data.track.kind === 'video') {
         paintPeerFace(peerStream, remoteSocketId)
