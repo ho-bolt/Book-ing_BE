@@ -409,9 +409,11 @@ function makeConnection(remoteSocketId) {
         .getTracks()
         .forEach((track) => myPeerConnection.addTrack(track, myStream));
 
-    screenStream
-        .getTracks()
-        .forEach((track) => myPeerConnection.addTrack(track, screenStream));
+    if (screenStream) {
+        screenStream
+            .getTracks()
+            .forEach((track) => myPeerConnection.addTrack(track, screenStream));
+    }
 
     console.log('내 스트림 ', myStream)
     console.log('스크린 스트림', screenStream)
