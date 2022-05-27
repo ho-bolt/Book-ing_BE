@@ -399,12 +399,7 @@ function makeConnection(remoteSocketId) {
         handleAddStream(data, remoteSocketId)
 
     });
-    myPeerConnection.addEventListener('addTrack', (data) => {
-        console.log("나는 T스크림들어와랏!!!", data)
-    })
-    myPeerConnection.addEventListener('addtrack', (data) => {
-        console.log("나는 t 스크림들어와랏!!!", data)
-    })
+
 
 
 
@@ -421,7 +416,12 @@ function makeConnection(remoteSocketId) {
             .forEach((track) => myPeerConnection.addTrack(track, screenStream));
 
     }
-
+    myPeerConnection.addEventListener('addTrack', (data) => {
+        console.log("나는 T스크림들어와랏!!!", data)
+    })
+    myPeerConnection.addEventListener('addtrack', (data) => {
+        console.log("나는 t 스크림들어와랏!!!", data)
+    })
     console.log('내 스트림 ', myStream)
     console.log('스크린 스트림', screenStream)
     pcObj[remoteSocketId] = myPeerConnection;
