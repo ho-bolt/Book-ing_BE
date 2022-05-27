@@ -399,9 +399,9 @@ function makeConnection(remoteSocketId) {
 
     });
 
-    myPeerConnection.addEventListener('addtrack', (data) => {
-        console.log("@@@", data)
-    })
+
+
+
     // console.log(myStream.getTracks())
     //내 장치들을 offer에 넣어준다.
     myStream
@@ -430,8 +430,8 @@ function handleAddStream(data, remoteSocketId) {
     const peerStream = data.streams[0]
 
     console.log('화면공유 했을 때')
-    console.log(data)
-    console.log(data.streams)
+    console.log("!!!!!!!!data", data)
+    console.log("@@@@@@@@@", data.streams)
 
     if (data.track.kind === 'video') {
         paintPeerFace(peerStream, remoteSocketId)
@@ -491,8 +491,6 @@ async function shareScreen() {
     console.log('sharescreen 에밋')
     socket2.emit('join_room', roomName);
 }
-
-
 
 
 
