@@ -364,21 +364,26 @@ function makeConnection(remoteSocketId) {
         // console.log("아이스 캔디에이트", event)
         handleIce(event, remoteSocketId)
     });
+
+    myPeerConnection.ontrack = handleTrackEvent;
+
     // myPeerConnection.addEventListener('addstream', handleAddStream(data, remoteSocketId));
 
     //나의 stream이 상대 peer의 카메라 오디오를 가져옴 
     myPeerConnection.addEventListener('track', (data) => {
-
         console.log('트랙(addstream) ', data)
         handleAddStream(data, remoteSocketId)
 
-
     });
+
+    myPeerConnection.addEventListener('addTrack', (data) => {
+        console.log("@@@", data)
+    })
     // console.log(myStream.getTracks())
     //내 장치들을 offer에 넣어준다.
     myStream
         .getTracks()
-        .forEach((track) => senders.push(myPeerConnection.addTrack(track, myStream)));
+        .forEach((track) => myPeerConnection.addTrack(track, myStream));
 
     console.log('내 스트림 ', myStream)
     pcObj[remoteSocketId] = myPeerConnection;
@@ -387,6 +392,11 @@ function makeConnection(remoteSocketId) {
     // senders.push(myStream);
     console.log("senders", senders)
     return myPeerConnection
+}
+
+function handleTrackEvent(e) {
+    console.log("@eeeeeeee", e)
+    document.getElementById('screenShare').srcObject = e.streams[0];
 }
 
 function handleIce(data, remoteSocketId) {
@@ -398,6 +408,10 @@ function handleIce(data, remoteSocketId) {
 
 function handleAddStream(data, remoteSocketId) {
     const peerStream = data.streams[0]
+
+    console.log('화면공유 했을 때')
+    console.log(data)
+    console.log(data.streams)
 
     if (data.track.kind === 'video') {
         paintPeerFace(peerStream, remoteSocketId)
@@ -444,7 +458,6 @@ function handleAddStream(data, remoteSocketId) {
 
 
 async function shareScreen() {
-
     let screenStream = await navigator.mediaDevices.getDisplayMedia({
         video: {
             cursor: 'always'
@@ -454,18 +467,9 @@ async function shareScreen() {
             noiseSuppression: true,
         }
     })
-
     console.log('sharescreen 에밋')
     socket2.emit('join_room', roomName);
     const screenTrack = screenStream.getTracks()[0];
-    const screenGrid = document.querySelector('#screen-grid')
-    const video = document.createElement('video')
-    const div = document.createElement('div')
-    video.autoPlay = true;
-    video.playsInline = true;
-    video.srcObject = screenStream;
-    div.appendChild(video)
-    screenGrid.appendChild(div)
 
 }
 
@@ -535,6 +539,7 @@ async function paintPeerFace(peerStream, id) {
         const video = document.createElement('video')
         const div = document.createElement('div')
         div.id = id;
+        video.style = border
         video.autoplay = true;
         video.playsInline = true;
         video.srcObject = peerStream;
