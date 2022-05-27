@@ -246,9 +246,9 @@ socket.on('welcome', async (userObjArr, socketIdformserver) => {
     // console.log("새로 들어온 사람 id", socketIdformserver)
 
     //누군가 들어왔을 때 실행
-    // if (len === 1) {
-    //     return;
-    // }
+    if (len === 1) {
+        return;
+    }
     for (let i = 0; i < len - 1; i++) {
         console.log('누군가 들어왔어요!');
         //가장 최근에 들어온 브라우저 제외
