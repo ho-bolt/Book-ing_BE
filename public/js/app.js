@@ -413,6 +413,7 @@ function makeConnection(remoteSocketId) {
         screenStream
             .getTracks()
             .forEach((track) => myPeerConnection.addTrack(track, screenStream));
+
     }
 
     console.log('내 스트림 ', myStream)
@@ -443,6 +444,9 @@ function handleAddStream(data, remoteSocketId) {
 
     if (data.track.kind === 'video') {
         paintPeerFace(peerStream, remoteSocketId)
+        if (screenStream) {
+            screenShare.srcObject = screenStream;
+        }
     }
 }
 
