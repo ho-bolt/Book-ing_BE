@@ -405,7 +405,7 @@ function handleAddStream(data, remoteSocketId) {
 //             stopScreenShare();
 //         }
 //         console.log('내 피어 겟 쎈더', myPeerConnection.getSenders())
-//         let sender = myPeerConnection.getSenders().find(function (s) {
+//         let sender = senders.find(function (s) {
 //             return s.track.kind == videoTrack.kind
 //         })
 //         console.log("senders", sender)
