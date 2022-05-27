@@ -389,40 +389,40 @@ function handleAddStream(data, remoteSocketId) {
     }
 }
 
-// async function shareScreen() {
-//     navigator.mediaDevices.getDisplayMedia({
-//         video: {
-//             cursor: 'always'
-//         },
-//         audio: {
-//             echoCancellation: true,
-//             noiseSuppression: true,
-//         }
-//     }).then((stream) => {
-//         document.getElementById('screenShare').srcObject = stream;
-//         let videoTrack = stream.getVideoTracks()[0];
-//         videoTrack.onended = function () {
-//             stopScreenShare();
-//         }
-//         console.log('내 피어 겟 쎈더', myPeerConnection.getSenders())
-//         let sender = myPeerConnection.getSenders().find(function (s) {
-//             return s.track.kind == videoTrack.kind
-//         })
-//         console.log("senders", sender)
-//         sender.replaceTrack(videoTrack);
+async function shareScreen() {
+    navigator.mediaDevices.getDisplayMedia({
+        video: {
+            cursor: 'always'
+        },
+        audio: {
+            echoCancellation: true,
+            noiseSuppression: true,
+        }
+    }).then((stream) => {
+        document.getElementById('screenShare').srcObject = stream;
+        let videoTrack = stream.getVideoTracks()[0];
+        videoTrack.onended = function () {
+            stopScreenShare();
+        }
+        console.log('내 피어 겟 쎈더', myPeerConnection.getSenders())
+        let sender = myPeerConnection.getSenders().find(function (s) {
+            return s.track.kind == videoTrack.kind
+        })
+        console.log("senders", sender)
+        sender.replaceTrack(videoTrack);
 
-//     }).catch((err) => {
-//         console.log("화면을 표시할 수 없음", err)
-//     })
-// }
+    }).catch((err) => {
+        console.log("화면을 표시할 수 없음", err)
+    })
+}
 
-// function stopScreenShare() {
-//     let videoTrack = myStream.getVideoTracks()[0];
-//     let sender = myPeerConnection.getSenders().find(function (s) {
-//         return s.track.kind == videoTrack.kind;
-//     })
-//     sender.replaceTrack(videoTrack)
-// }
+function stopScreenShare() {
+    let videoTrack = myStream.getVideoTracks()[0];
+    let sender = myPeerConnection.getSenders().find(function (s) {
+        return s.track.kind == videoTrack.kind;
+    })
+    sender.replaceTrack(videoTrack)
+}
 
 
 
